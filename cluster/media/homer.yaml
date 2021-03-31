@@ -10,8 +10,7 @@ spec:
       chart: homer
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
-        namespace: flux-system
+        name: k8s-at-home.flux-system
       version: 3.2.1
   interval: 10m0s
 
