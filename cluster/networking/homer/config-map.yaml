@@ -12,10 +12,10 @@ data:
     # Using this will ignore remaining config in this file
     # externalConfig: https://example.com/server-luci/config.yaml
 
-    title: "Home dashboard"
-    subtitle: "Homer"
+    title: "Home network"
+    # subtitle: "Homer"
     # documentTitle: "Welcome" # Customize the browser tab text
-    logo: "assets/logo.png"
+    # logo: "assets/logo.png"
     # Alternatively a fa icon can be provided:
     # icon: "fas fa-skull-crossbones"
 
@@ -65,23 +65,23 @@ data:
         background-image: "assets/your/dark/bg.png"
 
     # Optional message
-    message:
+    # message:
       # url: "https://<my-api-endpoint>" # Can fetch information from an endpoint to override value below.
-      style: "is-warning"
-      title: "Optional message!"
-      icon: "fa fa-exclamation-triangle"
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      # style: "is-warning"
+      # title: "Optional message!"
+      # icon: "fa fa-exclamation-triangle"
+      # content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
     # Optional navbar
-    # links: [] # Allows for navbar (dark mode, layout, and search) without any links
-    links:
-      - name: "Link 1"
-        icon: "fab fa-github"
-        url: "https://github.com/bastienwirtz/homer"
-        target: "_blank" # optional html tag target attribute
-      - name: "link 2"
-        icon: "fas fa-book"
-        url: "https://github.com/bastienwirtz/homer"
+    links: [] # Allows for navbar (dark mode, layout, and search) without any links
+    # links:
+    #   - name: "Link 1"
+    #     icon: "fab fa-github"
+    #     url: "https://github.com/bastienwirtz/homer"
+    #     target: "_blank" # optional html tag target attribute
+    #   - name: "link 2"
+    #     icon: "fas fa-book"
+    #     url: "https://github.com/bastienwirtz/homer"
 
     # Services
     # First level array represents a group.
@@ -110,9 +110,9 @@ data:
         items:
           - name: "Pi-hole"
             logo: "assets/tools/sample.png"
-            # subtitle: "Network-wide Ad Blocking" # optional, if no subtitle is defined, PiHole statistics will be shown
-            tag: "other"
-            url: "http://192.168.0.100/admin"
+            subtitle: "Network-wide Ad Blocking" # optional, if no subtitle is defined, PiHole statistics will be shown
+            tag: "network"
+            url: "http://pihole.home.waibel.us/admin"
             type: "PiHole" # optional, loads a specific component that provides extra features. MUST MATCH a file name (without file extension) available in `src/components/services`
             target: "_blank" # optional html a tag target attribute
             # class: "green" # optional custom CSS class for card, useful with custom stylesheet
