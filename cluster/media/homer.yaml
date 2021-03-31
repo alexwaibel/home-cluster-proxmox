@@ -13,4 +13,11 @@ spec:
         name: k8s-at-home.flux-system
       version: 3.2.1
   interval: 10m0s
-
+  values:
+    ingress:
+      enabled: true
+      hosts:
+        - host: homer.home.waibel.us
+          paths:
+            - path: /
+              pathType: Prefix
