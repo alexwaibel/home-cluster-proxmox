@@ -15,10 +15,10 @@ spec:
       version: 3.2.1
   interval: 5m0s
   values:
-    volumeMounts:
+    additionalVolumeMounts:
       - name: config-vol
         mountPath: /www/assets
-    volumes:
+    additionalVolumes:
       - name: config-vol
         configMap:
           name: homer-config-map
