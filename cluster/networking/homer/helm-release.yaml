@@ -15,6 +15,10 @@ spec:
       version: 3.2.1
   interval: 5m0s
   values:
+    configmap.enabled: true
+    envFrom:
+      - configMapRef:
+          name: config-map
     ingress:
       enabled: true
       hosts:
