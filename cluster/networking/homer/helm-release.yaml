@@ -13,4 +13,4 @@ spec:
         name: k8s-at-home
         namespace: flux-system
       version: 3.2.1
-  interval: 10m0s
+  interval: 5m0s
