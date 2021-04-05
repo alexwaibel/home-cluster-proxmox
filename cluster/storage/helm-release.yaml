@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: nfs-subdir-external-provisioner
         namespace: flux-system
-      version: 3.2.1
+      version: 4.0.6
   interval: 5m0s
   values:
     nfs:
