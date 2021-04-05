@@ -1,0 +1,11 @@
+{
+	acme_dns cloudflare {$CF_API_TOKEN}
+}
+
+home.waibel.us {
+	reverse_proxy 192.168.1.124:8006
+}
+
+fileserver.home.waibel.us {
+	reverse_proxy 192.168.1.200
+}
