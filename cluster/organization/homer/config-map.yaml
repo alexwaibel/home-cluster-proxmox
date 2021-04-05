@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: homer-config-map
-  namespace: networking
+  namespace: organization
 data:
   config.yml: |
     title: "Home network"
