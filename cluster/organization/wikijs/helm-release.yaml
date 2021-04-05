@@ -21,4 +21,6 @@ spec:
     postgresql:
       persistance:
         enabled: true
-        existingClaim: wikijs
+        existingClaim: wikijs-data
+        storageClass: nfs-client
+        size: 10Gi
