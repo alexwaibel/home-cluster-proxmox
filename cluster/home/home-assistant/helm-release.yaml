@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: home-assitant
+      chart: home-assistant
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home
