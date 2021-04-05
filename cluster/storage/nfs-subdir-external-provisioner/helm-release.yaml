@@ -16,4 +16,4 @@ spec:
   values:
     nfs:
       server: 192.168.1.200
-      path: /mnt/shared
+      path: /mnt/share
