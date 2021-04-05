@@ -9,3 +9,7 @@ home.waibel.us {
 fileserver.home.waibel.us {
 	reverse_proxy 192.168.1.200
 }
+
+wiki.home.waibel.us {
+	reverse_proxy 192.168.1.129
+}
