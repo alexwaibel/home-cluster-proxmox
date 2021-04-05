@@ -22,4 +22,3 @@ spec:
       persistance:
         enabled: true
         existingClaim: wikijs
-        storageClass: nfs-client
