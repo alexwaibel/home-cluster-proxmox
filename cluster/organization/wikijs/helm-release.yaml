@@ -19,8 +19,6 @@ spec:
         - host: wiki.home.waibel.us
           paths: ["/"]
     postgresql:
-      persistance:
+      persistence:
         enabled: true
         existingClaim: wikijs-data
-        storageClass: nfs-client
-        size: 10Gi
