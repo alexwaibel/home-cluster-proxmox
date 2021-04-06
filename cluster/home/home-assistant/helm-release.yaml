@@ -16,11 +16,16 @@ spec:
   values:
     additionalVolumeMounts:
       - name: zwave-usb
-        mountPath: /dev/ttyUSB1
+        mountPath: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_C1300B40-if00-port0
+      - name: zigbee-usb
+        mountPath: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_C1300B40-if01-port0
     additionalVolumes:
       - name: zwave-usb
         hostPath:
-          path: /dev/ttyUSB1
+          path: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_C1300B40-if00-port0
+      - name: zigbee-usb
+        hostPath:
+          path: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_C1300B40-if01-port0
     ingress:
       enabled: true
       hosts:
