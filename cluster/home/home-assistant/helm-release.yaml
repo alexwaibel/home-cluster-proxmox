@@ -21,3 +21,7 @@ spec:
           paths:
             - path: /
               pathType: Prefix
+    persistence:
+      config:
+        enabled: true
+        existingClaim: home-assistant-config
