@@ -16,11 +16,11 @@ spec:
   values:
     additionalVolumeMounts:
       - name: zwave-usb
-        mountPath: /dev/ttyUSB0
+        mountPath: /dev/ttyUSB1
     additionalVolumes:
       - name: zwave-usb
         hostPath:
-          path: /dev/ttyUSB0
+          path: /dev/ttyUSB1
     ingress:
       enabled: true
       hosts:
