@@ -46,3 +46,17 @@ spec:
               operator: In
               values:
               - zwave-controller
+    addons:
+      codeserver:
+        enabled: true
+        workingDir: "/config"
+        args:
+        - --auth
+        - "none"
+        ingress:
+          enabled: true
+          hosts:
+          - host: hass-config.home.waibel.us
+            paths:
+            - path: /
+              pathType: Prefix
