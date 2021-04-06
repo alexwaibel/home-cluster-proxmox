@@ -60,3 +60,6 @@ spec:
             paths:
             - path: /
               pathType: Prefix
+        volumeMounts:
+        - name: config
+          mountPath: /config
