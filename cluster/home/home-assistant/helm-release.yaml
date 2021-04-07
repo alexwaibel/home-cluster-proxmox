@@ -1,3 +1,4 @@
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -43,25 +44,25 @@ spec:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
-          - matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - zwave-controller
+            - matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - zwave-controller
     addons:
       codeserver:
         enabled: true
         workingDir: "/config"
         args:
-        - --auth
-        - "none"
+          - --auth
+          - "none"
         ingress:
           enabled: true
           hosts:
-          - host: hass-config.home.waibel.us
-            paths:
-            - path: /
-              pathType: Prefix
+            - host: hass-config.home.waibel.us
+              paths:
+                - path: /
+                  pathType: Prefix
         volumeMounts:
-        - name: config
-          mountPath: /config
+          - name: config
+            mountPath: /config
