@@ -19,10 +19,14 @@ spec:
     additionalVolumeMounts:
       - name: led-usb
         mountPath: /dev/ttyUSB2
+      - name: video-usb
+        mountPath: /dev/video0
     additionalVolumes:
       - name: led-usb
         hostPath:
           path: /dev/ttyUSB2
+      - name: video-usb
+        mountPath: /dev/video0
     ingress:
       enabled: true
       hosts:
