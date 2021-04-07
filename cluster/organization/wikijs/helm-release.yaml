@@ -18,7 +18,4 @@ spec:
       hosts:
         - host: wiki.home.waibel.us
           paths: ["/"]
-    postgresql:
-      persistence:
-        enabled: true
-        existingClaim: wikijs-data
+    postgresql.persistence.existingClaim: wikijs-data
