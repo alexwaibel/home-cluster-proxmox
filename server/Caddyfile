@@ -21,3 +21,7 @@ hass.home.waibel.us {
 hass-config.home.waibel.us {
 	reverse_proxy 192.168.1.129
 }
+
+hyperion.home.waibel.us {
+	reverse_proxy 192.168.1.129
+}
