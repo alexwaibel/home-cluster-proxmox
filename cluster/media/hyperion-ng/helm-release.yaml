@@ -21,6 +21,8 @@ spec:
         mountPath: /dev/ttyUSB2
       - name: video-usb
         mountPath: /dev/video0
+      - name: video-usb-metadata
+        mountPath: /dev/video1
     additionalVolumes:
       - name: led-usb
         hostPath:
@@ -28,6 +30,9 @@ spec:
       - name: video-usb
         hostPath:
           path: /dev/video0
+      - name: video-usb-metadata
+        hostPath:
+          path: /dev/video1
     ingress:
       enabled: true
       hosts:
