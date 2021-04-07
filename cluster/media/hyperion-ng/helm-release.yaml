@@ -26,7 +26,8 @@ spec:
         hostPath:
           path: /dev/ttyUSB2
       - name: video-usb
-        mountPath: /dev/video0
+        hostPath:
+          path: /dev/video0
     ingress:
       enabled: true
       hosts:
