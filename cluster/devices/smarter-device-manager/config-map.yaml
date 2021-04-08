@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: smarter-device-manager-config-map
+  namespace: devices
+data:
+  conf.yaml: |
+    - devicematch: ^ttyUSB[0-9]*$
+      nummaxdevices: 1
+    - devicematch: ^video[0-9]*$
+      nummaxdevices: 1
