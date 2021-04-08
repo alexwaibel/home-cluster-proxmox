@@ -15,20 +15,6 @@ spec:
       version: 6.3.1
   interval: 5m0s
   values:
-    securityContext:
-      privileged: true
-    additionalVolumeMounts:
-      - name: zwave-usb
-        mountPath: /dev/ttyUSB0
-      - name: zigbee-usb
-        mountPath: /dev/ttyUSB1
-    additionalVolumes:
-      - name: zwave-usb
-        hostPath:
-          path: /dev/ttyUSB0
-      - name: zigbee-usb
-        hostPath:
-          path: /dev/ttyUSB1
     ingress:
       enabled: true
       hosts:
@@ -40,15 +26,9 @@ spec:
       config:
         enabled: true
         existingClaim: home-assistant-config
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                    - zwave-controller
+    resources:
+      requests:
+        smarter-devices/ttyUSB0
     addons:
       codeserver:
         enabled: true
