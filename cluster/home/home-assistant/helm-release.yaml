@@ -26,7 +26,6 @@ spec:
       config:
         enabled: true
         existingClaim: home-assistant-config
-    resources.requests.smarter-devices/ttyUSB0: 1
     addons:
       codeserver:
         enabled: true
@@ -44,3 +43,4 @@ spec:
         volumeMounts:
           - name: config
             mountPath: /config
+    resources.requests.smarter-devices/ttyUSB0: 1
