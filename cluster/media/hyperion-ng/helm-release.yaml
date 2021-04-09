@@ -14,25 +14,15 @@ spec:
         namespace: flux-system
   interval: 5m0s
   values:
-    securityContext:
-      privileged: true
-    additionalVolumeMounts:
-      - name: led-usb
-        mountPath: /dev/ttyUSB2
-      - name: video-usb
-        mountPath: /dev/video0
-      - name: video-usb-metadata
-        mountPath: /dev/video1
-    additionalVolumes:
-      - name: led-usb
-        hostPath:
-          path: /dev/ttyUSB2
-      - name: video-usb
-        hostPath:
-          path: /dev/video0
-      - name: video-usb-metadata
-        hostPath:
-          path: /dev/video1
+    resources:
+      limits:
+        smarter-devices/ttyUSB2: 1
+        smarter-devices/video0: 1
+        smarter-devices/video1: 1
+      requests:
+        smarter-devices/ttyUSB2: 1
+        smarter-devices/video0: 1
+        smarter-devices/video1: 1
     ingress:
       enabled: true
       hosts:
