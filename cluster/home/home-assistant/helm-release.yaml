@@ -29,8 +29,10 @@ spec:
     resources:
       limits:
         smarter-devices/ttyUSB0: 1
+        smarter-devices/ttyUSB1: 1
       requests:
         smarter-devices/ttyUSB0: 1
+        smarter-devices/ttyUSB1: 1
     addons:
       codeserver:
         enabled: true
