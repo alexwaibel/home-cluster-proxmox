@@ -15,10 +15,8 @@ spec:
       version: 3.2.0
   interval: 5m0s
   values:
-    additionalVolumeMounts:
-      - name: config
-        mountPath: /root/config
-    additionalVolumes:
-      - name: config
-        configMap:
-          name: smarter-device-manager-config-map
+    conf:
+    - devicematch: ^ttyUSB[0-9]*$
+      nummaxdevices: 1
+    - devicematch: ^video[0-9]*$
+      nummaxdevices: 1
