@@ -15,8 +15,8 @@ spec:
       version: 3.2.0
   interval: 5m0s
   values:
-    conf:
-    - devicematch: ^ttyUSB[0-9]*$
-      nummaxdevices: 1
-    - devicematch: ^video[0-9]*$
-      nummaxdevices: 1
+    config:
+      - devicematch: ^ttyUSB[0-9]*$
+        nummaxdevices: 1
+      - devicematch: ^video[0-9]*$
+        nummaxdevices: 1
