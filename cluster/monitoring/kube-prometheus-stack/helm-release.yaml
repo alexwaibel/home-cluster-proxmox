@@ -48,6 +48,14 @@ spec:
         enabled: true
         hosts:
         - "grafana.home.waibel.us"
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+        - action: replace
+          sourceLabels:
+          - node
+          targetLabel: instance
     kubeControllerManager:
       enabled: false
     kubeScheduler:
