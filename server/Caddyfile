@@ -25,3 +25,15 @@ hass-config.home.waibel.us {
 hyperion.home.waibel.us {
 	reverse_proxy 192.168.1.129
 }
+
+alert-manager.home.waibel.us {
+	reverse_proxy 192.168.1.129
+}
+
+grafana.home.waibel.us {
+	reverse_proxy 192.168.1.129
+}
+
+prometheus.home.waibel.us {
+	reverse_proxy 192.168.1.129
+}
