@@ -19,6 +19,18 @@ spec:
   timeout: 20m0s
   values:
     alertmanager:
+      config:
+        route:
+          routes:
+          - match:
+              alertname: Watchdog
+            receiver: 'null'
+          - match:
+              alertname: KubeMemoryOvercommit
+            receiver: 'null'
+          - match:
+              alertname: KubeCPUOvercommit
+            receiver: 'null'
       ingress:
         enabled: true
         hosts:
@@ -36,13 +48,19 @@ spec:
         enabled: true
         hosts:
         - "grafana.home.waibel.us"
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeEtcd:
+      enabled: false
     prometheus:
       ingress:
         enabled: true
         hosts:
         - "prometheus.home.waibel.us"
       prometheusSpec:
-        retention: 336h
+        retention: 14d
         walCompression: true
         storageSpec:
           volumeClaimTemplate:
