@@ -28,7 +28,21 @@ I provisioned Proxmox using the ZFS filesystem which provides many benefits incl
 Storage for the k3s cluster is provided by the virtualized NFS server. The [NFS Subdirectory External Provisioner Helm chart](https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/) is used to provision persistent volume claims automatically.
 
 ## Cluster Development
+
+### Prerequisites
+
 - Install the `pre-commit` hooks to ensure linting runs on every commit
+- Ensure you have access to the cluster with `kubectl cluster-info`
+
+### Provisioning cluster
+
+1. Install the [flux CLI](https://github.com/fluxcd/flux2/)
+
+1. Run `flux check`
+
+1. Provision cluster with `flux bootstrap github --owner=alexwaibel --repository=home-cluster --private=false --personal=true --path=./cluster`
+
+1. Ensure USB devices can attach to the node with `kubectl label node $NODE_NAME smarter-device-manager=enabled`
 
 ## Acknowledgements
 This cluster has been heavily inspired by the [k8s@home](https://github.com/k8s-at-home) community.
