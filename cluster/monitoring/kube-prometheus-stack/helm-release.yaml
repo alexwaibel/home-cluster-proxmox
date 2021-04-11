@@ -15,8 +15,6 @@ spec:
         kind: HelmRepository
         name: prometheus-community-charts
         namespace: flux-system
-      interval: 5m0s
-  timeout: 20m0s
   values:
     alertmanager:
       config:
@@ -53,10 +51,7 @@ spec:
           - __meta_kubernetes_pod_node_name
           targetLabel: kubernetes_node
     grafana:
-      ingress:
-        enabled: true
-        hosts:
-        - "grafana.home.waibel.us"
+      enabled: false
     kubelet:
       enabled: true
       serviceMonitor:
