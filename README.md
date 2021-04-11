@@ -33,6 +33,8 @@ Storage for the k3s cluster is provided by the virtualized NFS server. The [NFS 
 
 - Install the `pre-commit` hooks to ensure linting runs on every commit
 - Ensure you have access to the cluster with `kubectl cluster-info`
+    - If using k3os, just copy over the config found in `/etc/rancher/k3s/k3s/config` and change the server address
+- Ensure USB devices can attach to the node with `kubectl label node $NODE_NAME smarter-device-manager=enabled`
 
 ### Provisioning cluster
 
@@ -41,8 +43,6 @@ Storage for the k3s cluster is provided by the virtualized NFS server. The [NFS 
 1. Run `flux check`
 
 1. Provision cluster with `flux bootstrap github --owner=alexwaibel --repository=home-cluster --private=false --personal=true --path=./cluster`
-
-1. Ensure USB devices can attach to the node with `kubectl label node $NODE_NAME smarter-device-manager=enabled`
 
 ## Acknowledgements
 This cluster has been heavily inspired by the [k8s@home](https://github.com/k8s-at-home) community.
