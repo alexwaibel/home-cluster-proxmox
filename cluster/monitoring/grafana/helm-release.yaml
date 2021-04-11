@@ -19,27 +19,6 @@ spec:
     grafana.ini:
       server:
         root_url: "https://grafana.home.waibel.us"
-      paths:
-        data: /var/lib/grafana/data
-        logs: /var/log/grafana
-        plugins: /var/lib/grafana/plugins
-        provisioning: /etc/grafana/provisioning
-      log:
-        mode: console
-      grafana_net:
-        url: https://grafana.net
-    dashboardProviders:
-      dashboardproviders.yaml:
-        apiVersion: 1
-        providers:
-        - name: 'default'
-          orgId: 1
-          folder: ''
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/default
     datasources:
       datasources.yaml:
         apiVersion: 1
