@@ -51,7 +51,11 @@ spec:
           - __meta_kubernetes_pod_node_name
           targetLabel: kubernetes_node
     grafana:
-      enabled: false
+      enabled: true
+      ingress:
+        enabled: true
+        hosts:
+        - "grafana.home.waibel.us"
     kubelet:
       enabled: true
       serviceMonitor:
