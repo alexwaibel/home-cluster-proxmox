@@ -42,6 +42,8 @@ Storage for the k3s cluster is provided by the virtualized NFS server. The [NFS 
 
 1. Run `flux check`
 
+1. Set the `GITHUB_TOKEN` env var to a personal access token to your GitHub account
+
 1. Provision cluster with `flux bootstrap github --owner=alexwaibel --repository=home-cluster --private=false --personal=true --path=./cluster`
 
 ## Acknowledgements
