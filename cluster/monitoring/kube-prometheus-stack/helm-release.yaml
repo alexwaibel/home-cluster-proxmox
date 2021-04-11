@@ -52,6 +52,12 @@ spec:
           targetLabel: kubernetes_node
     grafana:
       enabled: true
+      dashboards:
+        default:
+          flux-cluster:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
+          flux-control-plane:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
       ingress:
         enabled: true
         hosts:
