@@ -20,4 +20,4 @@ spec:
       server: 192.168.1.200
       path: /mnt/share
     storageClass:
-      pathPattern: ${.PVC.namespace}-${.PVC.name}
+      pathPattern: "${.PVC.namespace}-${.PVC.name}"
