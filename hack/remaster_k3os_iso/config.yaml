@@ -1,0 +1,3 @@
+ssh_authorized_keys:
+- github:alexwaibel
+hostname: k3os
