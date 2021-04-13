@@ -15,3 +15,7 @@ repos:
     hooks:
       - id: yamllint
         args: [-c=.yamlint]
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.7.1.1
+    hooks:
+      - id: shellcheck
