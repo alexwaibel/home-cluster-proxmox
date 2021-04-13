@@ -2,7 +2,7 @@ resource "proxmox_vm_qemu" "test-fileserver" {
     name = "test-fileserver"
     target_node="server"
 
-    clone = "VM 9001"
+    clone = "debian-cloudinit"
     os_type = "cloud-init"
 
     ipconfig0 = "ip=192.168.1.250/24,gw=192.168.1.1"
