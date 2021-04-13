@@ -5,6 +5,8 @@ This folder contains the Terraform templates and Ansible roles used to provision
 ## Provisioning
 
 1. Install Proxmox VE on the new host
+    - Use ZFS for the storage.
+    - I use RAID10 with 4x12tb drives
 1. Create a user in Proxmox for terraform
     ```bash
     $ pveum user add terraform@pve --password $PASSWORD
