@@ -1,3 +1,13 @@
 ssh_authorized_keys:
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBPRVJQgIcbFhkCNG7sYU4GqbKIct6I23uB21fsb8EHcoUFNc6j6mY7Yc5mrrx2qJjIo+qpbOPXPav54nzMp/woEktk+mSeqvUhHqi8yZgA8/Xs5qqZbn1QxF14G5V9tn05e56/9MyOdRCs0PYzt+gTYKsu90ffnA//zECF1SU7XDGAYgOjufgfEQxoPQX9HylMzuC4Wcb0tCJZ68aYC3SytCg8a/Vx4gMndodm4c/ikcrTpEb6D8JctTfuRMgNPnqAaJv3SAXd1lmFaPUgPR6iAaVfTnf1x0QphMkmAaAuDYZ9MHIwqFVIpw531RA6NQuVtPGjtQXdtFj7GOcsygV3AVfnV3eNFBQ/altuioGlks+yQHSpH/CqNTEHPx90YS4ALzhXiipt9uF1aq21LmyyturRgdCcr3gROl/A50/ga+WlLqXytmwqkWc5rQ2O4nWXtOIHgqAV7Kl6OtqUdFJk1DtRom2tPj+0DCXN1vFzFcNe389b1a1KpSE2rbIXj8= alex@alex-ThinkPad-X1-Yoga-4th
 - github:alexwaibel
+write_files:
+- encoding: ""
+  content: |-
+    [service_eth0]
+    Type = ethernet
+    IPv4 = 192.168.1.175/255.255.255.0/192.168.1.1
+  owner: root
+  path: /var/lib/connman/default.config
+  permissions: '0755'
 hostname: k3os

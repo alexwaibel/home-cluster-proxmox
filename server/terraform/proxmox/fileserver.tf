@@ -1,5 +1,5 @@
-resource "proxmox_vm_qemu" "test-fileserver" {
-    name = "test-fileserver"
+resource "proxmox_vm_qemu" "fileserver" {
+    name = "fileserver"
     target_node="server"
 
     clone = "debian-cloudinit"
