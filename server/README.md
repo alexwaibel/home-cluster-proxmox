@@ -13,6 +13,10 @@ This folder contains the Terraform templates and Ansible roles used to provision
     $ pveum user add terraform@pve --password $PASSWORD
     $ pveum aclmod / -user terraform@pve -role Administrator
     ```
+1. Download the required debian LXC template
+    ```bash
+    pveam download local debian-10-standard_10.7-1_amd64.tar.gz
+    ```
 1. Download the required debian ISO image
     ```bash
     $ cd /var/lib/vz/template/iso

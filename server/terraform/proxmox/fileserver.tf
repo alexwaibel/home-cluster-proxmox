@@ -1,26 +1,26 @@
 resource "proxmox_vm_qemu" "fileserver" {
-    name = "fileserver"
-    target_node="server"
+  name        = "fileserver"
+  target_node = "server"
 
-    clone = "debian-cloudinit"
-    os_type = "cloud-init"
+  clone   = "debian-cloudinit"
+  os_type = "cloud-init"
 
-    ipconfig0 = "ip=192.168.1.250/24,gw=192.168.1.1"
-    sshkeys = file("~/.ssh/id_rsa.pub")
+  ipconfig0 = "ip=192.168.1.250/24,gw=192.168.1.1"
+  sshkeys   = file("~/.ssh/id_rsa.pub")
 
-    memory = 2048
-    agent = 1
+  memory = 2048
+  agent  = 1
 
-    scsihw = "virtio-scsi-pci"
+  scsihw = "virtio-scsi-pci"
 
-    disk {
-        size = "200G"
-        type = "scsi"
-        storage = "local-zfs"
-    }
+  disk {
+    size    = "200G"
+    type    = "scsi"
+    storage = "local-zfs"
+  }
 
-    network {
-        model = "virtio"
-        bridge = "vmbr0"
-    }
+  network {
+    model  = "virtio"
+    bridge = "vmbr0"
+  }
 }
