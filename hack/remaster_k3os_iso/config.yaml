@@ -8,7 +8,3 @@ write_files:
     IPv4 = 192.168.1.175/255.255.255.0/192.168.1.1
     Nameservers = 192.168.1.1
 hostname: k3os
-k3os:
-  k3s_args:
-  - server
-  - "--etcd-expose-metrics true"
