@@ -32,10 +32,8 @@ spec:
       ingress:
         enabled: true
         hosts:
-        - host: "alert-manager.home.waibel.us"
-          paths:
-          - path: "/"
-            pathType: "Prefix"
+        - "alert-manager.home.waibel.us"
+        pathType: "Prefix"
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -77,10 +75,8 @@ spec:
       ingress:
         enabled: true
         hosts:
-        - host: "prometheus.home.waibel.us"
-          paths:
-          - path: "/"
-            pathType: "Prefix"
+        - "prometheus.home.waibel.us"
+        pathType: Prefix
       prometheusSpec:
         retention: 14d
         walCompression: true
