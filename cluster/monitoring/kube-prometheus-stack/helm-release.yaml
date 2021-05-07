@@ -33,6 +33,9 @@ spec:
         enabled: true
         hosts:
         - "alert-manager.home.waibel.us"
+        paths:
+        - path: "/"
+          pathType: Prefix
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -56,6 +59,9 @@ spec:
         enabled: true
         hosts:
         - "grafana.home.waibel.us"
+        paths:
+        - path: "/"
+          pathType: Prefix
     kubelet:
       enabled: true
       serviceMonitor:
@@ -75,6 +81,9 @@ spec:
         enabled: true
         hosts:
         - "prometheus.home.waibel.us"
+        paths:
+        - path: "/"
+          pathType: Prefix
       prometheusSpec:
         retention: 14d
         walCompression: true
