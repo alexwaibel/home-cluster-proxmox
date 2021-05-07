@@ -58,10 +58,7 @@ spec:
       ingress:
         enabled: true
         hosts:
-        - host: "grafana.home.waibel.us"
-          paths:
-          - path: "/"
-            pathType: "Prefix"
+        - "grafana.home.waibel.us"
     kubelet:
       enabled: true
       serviceMonitor:
