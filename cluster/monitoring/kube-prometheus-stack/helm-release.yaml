@@ -32,10 +32,10 @@ spec:
       ingress:
         enabled: true
         hosts:
-        - "alert-manager.home.waibel.us"
-        paths:
-        - path: "/"
-          pathType: Prefix
+        - host: alert-manager.home.waibel.us
+          paths:
+          - path: /
+            pathType: Prefix
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -58,10 +58,10 @@ spec:
       ingress:
         enabled: true
         hosts:
-        - "grafana.home.waibel.us"
-        paths:
-        - path: "/"
-          pathType: Prefix
+        - host: grafana.home.waibel.us
+          paths:
+          - path: /
+            pathType: Prefix
     kubelet:
       enabled: true
       serviceMonitor:
@@ -80,10 +80,10 @@ spec:
       ingress:
         enabled: true
         hosts:
-        - "prometheus.home.waibel.us"
-        paths:
-        - path: "/"
-          pathType: Prefix
+        - host: prometheus.home.waibel.us
+          paths:
+          - path: /
+            pathType: Prefix
       prometheusSpec:
         retention: 14d
         walCompression: true
