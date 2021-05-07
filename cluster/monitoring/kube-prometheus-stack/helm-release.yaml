@@ -68,8 +68,6 @@ spec:
       enabled: false
     kubeScheduler:
       enabled: false
-    kubeEtcd:
-      enabled: false
     prometheus:
       ingress:
         enabled: true
