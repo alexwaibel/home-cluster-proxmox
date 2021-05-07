@@ -1,0 +1,5 @@
+---
+creation_rules:
+  - path_regex: .*/cluster/.*.yaml
+    encrypted_regex: ^(data|stringData)$
+    pgp: 5BFE57B283EBFAA9C14392882895075AEB2D5149
