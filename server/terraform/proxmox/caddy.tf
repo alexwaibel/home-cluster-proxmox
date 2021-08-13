@@ -1,3 +1,15 @@
+locals {
+  ip_address      = "192.168.1.75"
+  ssh_public_key  = "~/.ssh/id_rsa.pub"
+  ssh_private_key = "~/.ssh/id_rsa" #tfsec:ignore:GEN002
+}
+
+variable "cloudflare_token" {
+  description = "The access token used by Caddy to communicate with Cloudflare for DNS cert validation."
+  type        = string
+  sensitive   = true
+}
+
 resource "random_password" "password" {
   length  = 32
   special = true
@@ -26,7 +38,23 @@ resource "proxmox_lxc" "caddy" {
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "192.168.1.75/24"
+    ip     = "${local.ip_address}/24"
     ip6    = "auto"
+    gw     = "192.168.1.1"
+  }
+
+  provisioner "remote-exec" {
+    inline = ["echo provisioned"]
+
+    connection {
+      host  = local.ip_address
+      type  = "ssh"
+      user  = "root"
+      agent = true
+    }
+  }
+
+  provisioner "local-exec" {
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user root --inventory '../../ansible/inventory' --private-key ${local.ssh_private_key} --extra-vars cloudflare_token=\"${var.cloudflare_token}\" ../../ansible/playbooks/proxy/caddy.yaml"
   }
 }

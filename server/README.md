@@ -33,8 +33,17 @@ This folder contains the Terraform templates and Ansible roles used to provision
     qm template 9000
     ```
 1. Install terraform CLI on your local machine
+1. Ensure you have a public/private ssh key-pair generated and added to ssh agent
+1. Install ansible dependencies
+    ```bash
+    ansible-galaxy install -r requirements.yml
+    ```
 1. Add the Proxmox provisioner to your `.terraformrc`
-1. Set `$PM_PASS` to your terraform user's password
+1. Set environment variables
+    ```bash
+    export PM_PASS=(the proxmox terraform user password)
+    export TF_VAR_cloudflare_token=(the cloudflare token)
+    ```
 1. Check the terraform plan and apply it
     ```bash
     $ terraform init

@@ -1,0 +1,8 @@
+---
+
+- hosts:
+  - fileserver
+  become: true
+  roles:
+  - role: asg1612.nfs-server
+    path_export: som path here

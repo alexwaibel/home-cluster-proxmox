@@ -1,0 +1,13 @@
+---
+
+proxy:
+  hosts:
+    caddy:
+      ansible_host: 192.168.1.75
+      ansible_user: root
+
+storage:
+  hosts:
+    fileserver:
+      ansible_host: 192.168.1.250
+      ansible_user: debian
