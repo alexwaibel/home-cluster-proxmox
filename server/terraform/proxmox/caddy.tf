@@ -1,9 +1,3 @@
-locals {
-  ip_address      = "192.168.1.75"
-  ssh_public_key  = "~/.ssh/id_rsa.pub"
-  ssh_private_key = "~/.ssh/id_rsa" #tfsec:ignore:GEN002
-}
-
 variable "cloudflare_token" {
   description = "The access token used by Caddy to communicate with Cloudflare for DNS cert validation."
   type        = string
@@ -38,7 +32,7 @@ resource "proxmox_lxc" "caddy" {
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "${local.ip_address}/24"
+    ip     = "${local.caddy_ip_address}/24"
     ip6    = "auto"
     gw     = "192.168.1.1"
   }
@@ -47,7 +41,7 @@ resource "proxmox_lxc" "caddy" {
     inline = ["echo provisioned"]
 
     connection {
-      host  = local.ip_address
+      host  = local.caddy_ip_address
       type  = "ssh"
       user  = "root"
       agent = true

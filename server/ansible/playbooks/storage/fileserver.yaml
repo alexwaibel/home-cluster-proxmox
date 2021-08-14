@@ -4,5 +4,5 @@
   - fileserver
   become: true
   roles:
-  - role: asg1612.nfs-server
-    path_export: som path here
+  - role: geerlingguy.nfs
+    nfs_exports: ["/mnt/share 192.168.1.0/24(rw,subtree_check)"]

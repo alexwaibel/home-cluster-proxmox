@@ -5,7 +5,7 @@ resource "proxmox_vm_qemu" "fileserver" {
   clone   = "debian-cloudinit"
   os_type = "cloud-init"
 
-  ipconfig0 = "ip=192.168.1.250/24,gw=192.168.1.1"
+  ipconfig0 = "ip=${local.fileserver_ip_address}/24,gw=192.168.1.1"
   sshkeys   = file("~/.ssh/id_rsa.pub")
 
   memory = 2048
@@ -22,5 +22,20 @@ resource "proxmox_vm_qemu" "fileserver" {
   network {
     model  = "virtio"
     bridge = "vmbr0"
+  }
+
+  provisioner "remote-exec" {
+    inline = ["echo provisioned"]
+
+    connection {
+      host  = local.fileserver_ip_address
+      type  = "ssh"
+      user  = "debian"
+      agent = true
+    }
+  }
+
+  provisioner "local-exec" {
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user debian --inventory '../../ansible/inventory' --private-key ${local.ssh_private_key} ../../ansible/playbooks/storage/fileserver.yaml"
   }
 }
