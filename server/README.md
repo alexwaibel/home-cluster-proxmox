@@ -11,10 +11,10 @@ This folder contains the Terraform templates and Ansible roles used to provision
 
 ### Dependencies
 
-- Terraform
-    - Proxmox provisioner must be added to your `.terraformrc`
-- Packer
-- Ansible
+- [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started)
+    - [Proxmox provisioner](https://registry.terraform.io/providers/Telmate/proxmox/latest/docs) must be added to your `.terraformrc`
+- [Packer](https://learn.hashicorp.com/tutorials/packer/get-started-install-cli)
+- [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip)
     - Install Ansible dependencies
         ```bash
         ansible-galaxy install -r ansible/requirements.yml
