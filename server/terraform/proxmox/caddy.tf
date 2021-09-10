@@ -32,7 +32,7 @@ resource "proxmox_lxc" "caddy" {
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "${local.caddy_ip_address}/24"
+    ip     = "${var.caddy_ip_address}/24"
     ip6    = "auto"
     gw     = "192.168.1.1"
   }
@@ -41,7 +41,7 @@ resource "proxmox_lxc" "caddy" {
     inline = ["echo provisioned"]
 
     connection {
-      host  = local.caddy_ip_address
+      host  = var.caddy_ip_address
       type  = "ssh"
       user  = "root"
       agent = true
@@ -49,6 +49,6 @@ resource "proxmox_lxc" "caddy" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user root --inventory '../../ansible/inventory' --private-key ${local.ssh_private_key} --extra-vars cloudflare_token=\"${var.cloudflare_token}\" ../../ansible/playbooks/proxy/caddy.yaml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user root --inventory '../../ansible/inventory' --private-key ${var.ssh_private_key} --extra-vars cloudflare_token=\"${var.cloudflare_token}\" ../../ansible/playbooks/proxy/caddy.yaml"
   }
 }

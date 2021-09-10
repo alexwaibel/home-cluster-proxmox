@@ -22,13 +22,12 @@ This folder contains the Terraform templates and Ansible roles used to provision
 1. Install Terraform CLI and Packer on your local machine
 1. Set environment variables
     ```bash
-    export PM_PASS=(the proxmox terraform user password)
+    export PKR_VAR_proxmox_password=(the proxmox terraform user password)
     export TF_VAR_cloudflare_token=(the cloudflare token)
     ```
 1. Build the template images
     ```bash
-    packer build -var proxmox_password=$PM_PASS packer/images/fileserver.pkr.hcl
-    packer build -var proxmox_password=$PM_PASS packer/images/k3os.pkr.hcl
+    packer build packer/images
     ```
 1. Install ansible dependencies
     ```bash
