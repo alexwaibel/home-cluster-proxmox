@@ -9,7 +9,18 @@ This folder contains the Terraform templates and Ansible roles used to provision
     - Must have sufficient storage space (I use RAID10 with 4x12tb drives)
 - You must have a public/private ssh key-pair generated and added to ssh agent
 
-## Provisioning
+### Dependencies
+
+- Terraform
+    - Proxmox provisioner must be added to your `.terraformrc`
+- Packer
+- Ansible
+    - Install Ansible dependencies
+        ```bash
+        ansible-galaxy install -r ansible/requirements.yml
+        ```
+
+### Provisioning
 1. Create a user in Proxmox for terraform
     ```bash
     pveum user add terraform@pve --password (the proxmox terraform user password)
@@ -19,7 +30,6 @@ This folder contains the Terraform templates and Ansible roles used to provision
     ```bash
     pveam download local debian-11-standard_11.0-1_amd64.tar.gz
     ```
-1. Install Terraform CLI and Packer on your local machine
 1. Set environment variables
     ```bash
     export PKR_VAR_proxmox_password=(the proxmox terraform user password)
@@ -29,11 +39,6 @@ This folder contains the Terraform templates and Ansible roles used to provision
     ```bash
     packer build packer/images
     ```
-1. Install ansible dependencies
-    ```bash
-    ansible-galaxy install -r ansible/requirements.yml
-    ```
-1. Add the Proxmox provisioner to your `.terraformrc`
 1. Check the terraform plan and apply it
     ```bash
     terraform -chdir=terraform/proxmox init
