@@ -1,5 +1,11 @@
 ---
 
+kubernetes:
+  hosts:
+    master:
+      ansible_host: 192.168.1.175
+      ansible_user: rancher
+
 proxy:
   hosts:
     caddy:

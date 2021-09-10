@@ -1,0 +1,24 @@
+---
+
+- hosts:
+  - master
+  gather_facts: no
+  tasks:
+  - name: Wait to allow k3s node to have a chance to come online
+    local_action:
+      module: wait_for
+      timeout: 30
+  - name: Enable k3os auto updates
+    raw: kubectl label node k3os k3os.io/upgrade=enabled
+  - name: Allow node to manage USB devices
+    raw: kubectl label node k3os smarter-device-manager=enabled
+  - name: Copy over k3s config for kubectl
+    local_action: command scp rancher@{{ ansible_host }}:/etc/rancher/k3s/k3s.yaml ~/.kube
+  - name: Rename k3s config
+    local_action: command mv ~/.kube/k3s.yaml ~/.kube/config
+  - name: Replace localhost in k3s config with node address
+    local_action:
+      module: replace
+      path: ~/.kube/config
+      regexp: '127\.0\.0\.1'
+      replace: '{{ ansible_host }}'

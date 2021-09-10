@@ -10,6 +10,12 @@ variable "fileserver_ip_address" {
   default     = "192.168.1.250"
 }
 
+variable "master_node_ip_address" {
+  description = "The IP address to be used for master k3os node."
+  type        = string
+  default     = "192.168.1.175"
+}
+
 variable "ssh_public_key" {
   description = "The location of the SSH public key."
   type        = string
