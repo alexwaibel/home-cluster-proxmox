@@ -38,7 +38,7 @@ source "proxmox" "debian_cloudinit" {
     "<spacebar>",
     "auto=true",
     "<spacebar>",
-    "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+    "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/debian-preseed.cfg",
     "<enter>"
   ]
   boot_wait      = "10s"

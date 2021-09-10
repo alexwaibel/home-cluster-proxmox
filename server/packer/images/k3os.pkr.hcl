@@ -44,7 +44,7 @@ source "proxmox" "k3os_cloudinit" {
     "<down>",
     "<end>",
     "<spacebar>",
-    "k3os.install.config_url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/config.yaml",
+    "k3os.install.config_url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/k3os-config.yaml",
     "<spacebar>",
     "k3os.fallback_mode=install",
     "<spacebar>",
