@@ -7,6 +7,7 @@ This folder contains the Terraform templates and Ansible roles used to provision
 - You must have a server with Proxmox VE installed
     - Must use ZFS for storage
     - Must have sufficient storage space (I use RAID10 with 4x12tb drives)
+- You must have a public/private ssh key-pair generated and added to ssh agent
 
 ## Provisioning
 1. Use the k3os ISO remastering script in `/hack` to create a cloud-init compatible k3os image
@@ -27,7 +28,6 @@ This folder contains the Terraform templates and Ansible roles used to provision
     export TF_VAR_cloudflare_token=(the cloudflare token)
     ```
 1. Run `packer build -var proxmox_password=$PM_PASS fileserver.pkr.hcl`
-1. Ensure you have a public/private ssh key-pair generated and added to ssh agent
 1. Install ansible dependencies
     ```bash
     ansible-galaxy install -r requirements.yml
