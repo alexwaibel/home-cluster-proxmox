@@ -3,6 +3,11 @@
 - hosts:
   - fileserver
   become: true
+  tasks:
+  - name: Disable password login
+    user:
+      name: debian
+      password_lock: true
   roles:
   - role: geerlingguy.nfs
     nfs_exports: ["/mnt/share 192.168.1.0/24(rw,subtree_check)"]
