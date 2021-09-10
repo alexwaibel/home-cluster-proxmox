@@ -34,6 +34,7 @@ Storage for the k3s cluster is provided by the virtualized NFS server. The [NFS 
 - Install the `pre-commit` hooks to ensure linting runs on every commit
 - Ensure you have access to the cluster with `kubectl cluster-info`
     - If using k3os, just copy over the config found in `/etc/rancher/k3s/k3s.yaml` and change the server address
+    - For deploying the cluster and all the necessary infra, see [the server directory](./server/README.md)
 - Ensure USB devices can attach to the node with `kubectl label node $NODE_NAME smarter-device-manager=enabled`
 
 ### Provisioning cluster
