@@ -13,7 +13,7 @@ resource "proxmox_lxc" "caddy" {
   hostname    = "caddy-test"
   target_node = "server"
 
-  ostemplate   = "local:vztmpl/debian-10-standard_10.7-1_amd64.tar.gz"
+  ostemplate   = "local:vztmpl/debian-11-standard_11.0-1_amd64.tar.gz"
   unprivileged = true
   onboot       = true
   start        = true
