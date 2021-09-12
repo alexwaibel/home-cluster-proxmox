@@ -38,11 +38,13 @@ source "proxmox" "debian_cloudinit" {
     "<spacebar>",
     "auto=true",
     "<spacebar>",
-    "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/debian-preseed.cfg",
+    "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
     "<enter>"
   ]
-  boot_wait      = "10s"
-  http_directory = "server/packer/http"
+  boot_wait = "10s"
+  http_content = {
+    "/preseed.cfg" = templatefile("${path.cwd}/server/packer/templates/debian-preseed.pkrtpl.hcl", { domain = var.domain })
+  }
 }
 
 build {

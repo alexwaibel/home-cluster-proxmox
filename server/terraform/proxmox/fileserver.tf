@@ -22,6 +22,6 @@ resource "proxmox_vm_qemu" "fileserver" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user debian --inventory '../../ansible/inventory' --private-key ${var.ssh_private_key} ../../ansible/playbooks/storage/fileserver.yaml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user debian --inventory '../../ansible/inventory' ../../ansible/playbooks/storage/fileserver.yaml"
   }
 }

@@ -34,3 +34,27 @@ variable "proxmox_iso_storage_pool" {
   description = "The name of the proxmox storage pool to store ISOs in."
   default     = "local"
 }
+
+variable "domain" {
+  type        = string
+  description = "Domain name for the network."
+  default     = "home.waibel.us"
+}
+
+variable "nameserver" {
+  type        = string
+  description = "IP of the nameserver."
+  default     = "192.168.1.100"
+}
+
+variable "master_node_ip" {
+  type        = string
+  description = "IP address used by the master k3s node."
+  default     = "192.168.1.12"
+}
+
+variable "github_username" {
+  type        = string
+  description = "GitHub username from which to add an authorized SSH key."
+  default     = "alexwaibel"
+}

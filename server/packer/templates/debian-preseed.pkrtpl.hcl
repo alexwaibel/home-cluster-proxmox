@@ -16,7 +16,7 @@ d-i netcfg/choose_interface select auto
 # values set here. However, setting the values still prevents the questions
 # from being shown, even if values come from dhcp.
 d-i netcfg/get_hostname string fileserver
-d-i netcfg/get_domain string home.waibel.us
+d-i netcfg/get_domain string ${domain}
 
 ### Mirror settings
 d-i mirror/country string manual

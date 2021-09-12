@@ -44,7 +44,7 @@ source "proxmox" "k3os_cloudinit" {
     "<down>",
     "<end>",
     "<spacebar>",
-    "k3os.install.config_url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/k3os-config.yaml",
+    "k3os.install.config_url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/config.yaml",
     "<spacebar>",
     "k3os.fallback_mode=install",
     "<spacebar>",
@@ -55,8 +55,10 @@ source "proxmox" "k3os_cloudinit" {
     "k3os.install.debug=true",
     "<F10>"
   ]
-  boot_wait      = "10s"
-  http_directory = "server/packer/http"
+  boot_wait = "10s"
+  http_content = {
+    "/config.yaml" = templatefile("${path.cwd}/server/packer/templates/k3os-config.pkrtpl.hcl", { hostname = k3os-master, node_ip = var.master_node_ip, nameserver = var.nameserver, github_username = var.github_username })
+  }
 }
 
 build {

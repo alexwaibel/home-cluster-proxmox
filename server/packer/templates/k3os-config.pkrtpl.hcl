@@ -1,15 +1,15 @@
 ssh_authorized_keys:
-- github:alexwaibel
+- github:${github_username}
 write_files:
 - path: /var/lib/connman/default.config
   content: |-
     [service_eth0]
     Type = ethernet
-    IPv4 = 192.168.1.175/255.255.255.0/192.168.1.1
-    Nameservers = 192.168.1.100
+    IPv4 = ${node_ip}/255.255.255.0/192.168.1.1
+    Nameservers = ${nameserver}
 - path: /etc/conf.d/qemu-guest-agent
   content: |-
     GA_PATH=/dev/vport2p1
   owner: root
   permissions: '0644'
-hostname: k3os-master
+hostname: ${hostname}

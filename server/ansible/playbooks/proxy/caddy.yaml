@@ -22,33 +22,33 @@
       }
 
       fileserver.home.waibel.us {
-        reverse_proxy 192.168.1.200
+        reverse_proxy 192.168.1.11
       }
 
       wiki.home.waibel.us {
-        reverse_proxy 192.168.1.129
+        reverse_proxy 192.168.1.12
       }
 
       hass.home.waibel.us {
-        reverse_proxy 192.168.1.129
+        reverse_proxy 192.168.1.12
       }
 
       hass-config.home.waibel.us {
-        reverse_proxy 192.168.1.129
+        reverse_proxy 192.168.1.12
       }
 
       hyperion.home.waibel.us {
-        reverse_proxy 192.168.1.129
+        reverse_proxy 192.168.1.12
       }
 
       alert-manager.home.waibel.us {
-        reverse_proxy 192.168.1.129
+        reverse_proxy 192.168.1.12
       }
 
       grafana.home.waibel.us {
-        reverse_proxy 192.168.1.129
+        reverse_proxy 192.168.1.12
       }
 
       prometheus.home.waibel.us {
-        reverse_proxy 192.168.1.129
+        reverse_proxy 192.168.1.12
       }

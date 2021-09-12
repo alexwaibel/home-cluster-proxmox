@@ -22,6 +22,6 @@ resource "proxmox_vm_qemu" "k3os-master" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user rancher --inventory '../../ansible/inventory' --private-key ${var.ssh_private_key} ../../ansible/playbooks/kubernetes/kubernetes.yaml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user rancher --inventory '../../ansible/inventory' ../../ansible/playbooks/kubernetes/kubernetes.yaml"
   }
 }

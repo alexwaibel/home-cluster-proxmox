@@ -1,19 +1,19 @@
 variable "caddy_ip_address" {
   description = "The IP address to be used for Caddy reverse proxy."
   type        = string
-  default     = "192.168.1.75"
+  default     = "192.168.1.10"
 }
 
 variable "fileserver_ip_address" {
   description = "The IP address to be used for NFS fileserver."
   type        = string
-  default     = "192.168.1.250"
+  default     = "192.168.1.11"
 }
 
 variable "master_node_ip_address" {
   description = "The IP address to be used for master k3os node."
   type        = string
-  default     = "192.168.1.175"
+  default     = "192.168.1.12"
 }
 
 variable "ssh_public_key" {
