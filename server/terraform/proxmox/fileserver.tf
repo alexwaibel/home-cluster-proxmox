@@ -8,7 +8,7 @@ resource "proxmox_vm_qemu" "fileserver" {
 
   agent     = 1
   ipconfig0 = "ip=${var.fileserver_ip_address}/24,gw=192.168.1.1"
-  sshkeys   = file("~/.ssh/id_rsa.pub")
+  sshkeys   = file(var.ssh_public_key)
 
   provisioner "remote-exec" {
     inline = ["echo provisioned"]

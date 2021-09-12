@@ -1,5 +1,5 @@
-resource "proxmox_vm_qemu" "k3os" {
-  name        = "k3os"
+resource "proxmox_vm_qemu" "k3os-master" {
+  name        = "k3os-master"
   target_node = "server"
 
   clone = "k3os-cloudinit"

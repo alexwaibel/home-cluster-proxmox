@@ -56,7 +56,7 @@ source "proxmox" "k3os_cloudinit" {
     "<F10>"
   ]
   boot_wait      = "10s"
-  http_directory = "packer/http"
+  http_directory = "server/packer/http"
 }
 
 build {

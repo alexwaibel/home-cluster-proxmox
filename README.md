@@ -27,25 +27,57 @@ I provisioned Proxmox using the ZFS filesystem which provides many benefits incl
 
 Storage for the k3s cluster is provided by the virtualized NFS server. The [NFS Subdirectory External Provisioner Helm chart](https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/) is used to provision persistent volume claims automatically.
 
-## Cluster Development
+## Installation
+
+The below steps will provision the k3s cluster as well as a reverse proxy and a fileserver.
+
+### Dependencies
+
+- [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started)
+    - [Proxmox provisioner](https://registry.terraform.io/providers/Telmate/proxmox/latest/docs) must be added to your `.terraformrc`
+- [Packer](https://learn.hashicorp.com/tutorials/packer/get-started-install-cli)
+- [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip)
+    - Install Ansible dependencies
+        ```bash
+        ansible-galaxy install -r ansible/requirements.yml
+        ```
+- [Flux CLI](https://github.com/fluxcd/flux2/)
 
 ### Prerequisites
 
 - Install the `pre-commit` hooks to ensure linting runs on every commit
-- Ensure you have access to the cluster with `kubectl cluster-info`
-    - If using k3os, just copy over the config found in `/etc/rancher/k3s/k3s.yaml` and change the server address
-    - For deploying the cluster and all the necessary infra, see [the server directory](./server/README.md)
-- Ensure USB devices can attach to the node with `kubectl label node $NODE_NAME smarter-device-manager=enabled`
+- You must have a server with Proxmox VE installed
+    - Must use ZFS for storage
+    - Must have sufficient storage space (I use RAID10 with 4x12tb drives)
+- You must have a public/private ssh key-pair generated and added to ssh agent
 
 ### Provisioning cluster
 
-1. Install the [flux CLI](https://github.com/fluxcd/flux2/)
-
-1. Run `flux check`
-
-1. Set the `GITHUB_TOKEN` env var to a personal access token to your GitHub account
-
-1. Provision cluster with `flux bootstrap github --owner=alexwaibel --repository=home-cluster --private=false --personal=true --path=./cluster`
+1. Create a user in Proxmox for terraform
+    ```bash
+    pveum user add terraform@pve --password (the proxmox terraform user password)
+    pveum aclmod / -user terraform@pve -role Administrator
+    ```
+1. Download the required debian LXC template
+    ```bash
+    pveam download local debian-11-standard_11.0-1_amd64.tar.gz
+    ```
+1. Set environment variables
+    ```bash
+    export PKR_VAR_proxmox_password=(the proxmox terraform user password)
+    export TF_VAR_cloudflare_token=(the cloudflare token)
+    export GITHUB_TOKEN=(GitHub personal access token)
+    ```
+1. Build the template images
+    ```bash
+    packer build server/packer/images
+    ```
+1. Check the terraform plan and apply it
+    ```bash
+    terraform -chdir=server/terraform/proxmox init
+    terraform -chdir=server/terraform/proxmox plan
+    terraform -chdir=server/terraform/proxmox apply
+    ```
 
 ## Acknowledgements
 This cluster has been heavily inspired by the [k8s@home](https://github.com/k8s-at-home) community.

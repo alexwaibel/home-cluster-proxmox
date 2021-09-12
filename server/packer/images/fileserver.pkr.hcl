@@ -42,7 +42,7 @@ source "proxmox" "debian_cloudinit" {
     "<enter>"
   ]
   boot_wait      = "10s"
-  http_directory = "packer/http"
+  http_directory = "server/packer/http"
 }
 
 build {

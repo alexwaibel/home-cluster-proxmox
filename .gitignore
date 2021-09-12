@@ -33,4 +33,4 @@ override.tf.json
 .terraformrc
 terraform.rc
 # ignore packer cache
-server/packer_cache/
+packer_cache/

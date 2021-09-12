@@ -10,7 +10,7 @@ resource "random_password" "password" {
 }
 
 resource "proxmox_lxc" "caddy" {
-  hostname    = "caddy-test"
+  hostname    = "caddy"
   target_node = "server"
 
   ostemplate   = "local:vztmpl/debian-11-standard_11.0-1_amd64.tar.gz"
@@ -18,7 +18,7 @@ resource "proxmox_lxc" "caddy" {
   onboot       = true
   start        = true
 
-  ssh_public_keys = file("~/.ssh/id_rsa.pub")
+  ssh_public_keys = file(var.ssh_public_key)
   password        = random_password.password.result
 
   cores  = 1
