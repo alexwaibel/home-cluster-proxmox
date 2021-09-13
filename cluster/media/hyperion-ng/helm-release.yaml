@@ -17,12 +17,8 @@ spec:
     resources:
       limits:
         smarter-devices/ttyUSB2: 1
-        smarter-devices/video0: 1
-        smarter-devices/video1: 1
       requests:
         smarter-devices/ttyUSB2: 1
-        smarter-devices/video0: 1
-        smarter-devices/video1: 1
     ingress:
       main:
         enabled: true
