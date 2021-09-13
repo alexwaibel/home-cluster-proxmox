@@ -1,3 +1,8 @@
+variable "domain" {
+  type        = string
+  description = "Domain name for the network."
+}
+
 source "proxmox" "debian_cloudinit" {
   proxmox_url              = "https://${var.proxmox_ip}:${var.proxmox_port}/api2/json"
   username                 = var.proxmox_username

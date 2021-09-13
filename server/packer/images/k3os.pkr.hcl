@@ -1,3 +1,18 @@
+variable "nameserver" {
+  type        = string
+  description = "IP of the nameserver."
+}
+
+variable "master_node_ip" {
+  type        = string
+  description = "IP address used by the master k3s node."
+}
+
+variable "github_username" {
+  type        = string
+  description = "GitHub username from which to add an authorized SSH key."
+}
+
 source "proxmox" "k3os_cloudinit" {
   proxmox_url              = "https://${var.proxmox_ip}:${var.proxmox_port}/api2/json"
   username                 = var.proxmox_username

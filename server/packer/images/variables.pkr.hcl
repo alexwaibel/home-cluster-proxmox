@@ -30,23 +30,3 @@ variable "proxmox_iso_storage_pool" {
   description = "The name of the proxmox storage pool to store ISOs in."
   default     = "local"
 }
-
-variable "domain" {
-  type        = string
-  description = "Domain name for the network."
-}
-
-variable "nameserver" {
-  type        = string
-  description = "IP of the nameserver."
-}
-
-variable "master_node_ip" {
-  type        = string
-  description = "IP address used by the master k3s node."
-}
-
-variable "github_username" {
-  type        = string
-  description = "GitHub username from which to add an authorized SSH key."
-}
