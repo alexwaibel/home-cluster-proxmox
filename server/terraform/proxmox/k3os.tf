@@ -1,3 +1,8 @@
+variable "master_node_ip_address" {
+  description = "The IP address to be used for master k3os node."
+  type        = string
+}
+
 resource "proxmox_vm_qemu" "k3os-master" {
   name        = "k3os-master"
   target_node = "server"

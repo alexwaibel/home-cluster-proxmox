@@ -1,3 +1,8 @@
+variable "fileserver_ip_address" {
+  description = "The IP address to be used for NFS fileserver."
+  type        = string
+}
+
 resource "proxmox_vm_qemu" "fileserver" {
   name        = "fileserver"
   target_node = "server"

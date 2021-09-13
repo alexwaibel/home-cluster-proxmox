@@ -64,12 +64,12 @@ The below steps will provision the k3s cluster as well as a reverse proxy and a 
     ```
 1. Set environment variables
     ```bash
-    export TF_VAR_cloudflare_token=(the cloudflare token)
     export GITHUB_TOKEN=(GitHub personal access token)
     ```
-1. Double check the [packer config](./server/packer/variables.auto.pkrvars.hcl) and add your proxmox password to the packer secrets file
+1. Double check the [packer config](./server/packer/variables.auto.pkrvars.hcl), [terraform config](./server/terraform/proxmox/variables.auto.tfvars), and the [proxmox provider config](./server/terraform/proxmox/provider.tf) and then add your secrets to the secrets files
     ```bash
     echo "proxmox_password = \"YOUR PASSWORD HERE\"" >> server/packer/images/secrets.auto.pkrvars.hcl
+    echo "cloudflare_token = \"YOUR TOKEN HERE\"" >> server/terraform/proxmox/secrets.auto.tfvars
     ```
 1. Build the template images
     ```bash

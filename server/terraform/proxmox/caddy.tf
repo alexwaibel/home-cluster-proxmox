@@ -1,3 +1,8 @@
+variable "caddy_ip_address" {
+  description = "The IP address to be used for Caddy reverse proxy."
+  type        = string
+}
+
 variable "cloudflare_token" {
   description = "The access token used by Caddy to communicate with Cloudflare for DNS cert validation."
   type        = string
