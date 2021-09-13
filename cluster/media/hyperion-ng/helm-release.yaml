@@ -24,12 +24,13 @@ spec:
         smarter-devices/video0: 1
         smarter-devices/video1: 1
     ingress:
-      enabled: true
-      hosts:
-        - host: hyperion.home.waibel.us
-          paths:
-            - path: /
-              pathType: Prefix
+      main:
+        enabled: true
+        hosts:
+          - host: hyperion.home.waibel.us
+            paths:
+              - path: /
+                pathType: Prefix
     persistence:
       config:
         enabled: true
