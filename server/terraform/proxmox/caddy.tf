@@ -51,4 +51,6 @@ resource "proxmox_lxc" "caddy" {
   provisioner "local-exec" {
     command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user ${var.caddy_user} --inventory '../../ansible/inventory' --extra-vars cloudflare_token=\"${var.cloudflare_token}\" ../../ansible/playbooks/proxy/caddy.yaml"
   }
+
+  depends_on = [local_file.ansible_inventory]
 }

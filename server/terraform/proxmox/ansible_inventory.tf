@@ -9,5 +9,5 @@ resource "local_file" "ansible_inventory" {
       k3os_user       = var.k3os_user
     }
   )
-  filename = "../../ansible/inventory/hosts.cfg"
+  filename = "../../ansible/inventory/hosts.yml"
 }

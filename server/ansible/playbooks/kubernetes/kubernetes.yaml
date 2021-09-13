@@ -22,7 +22,10 @@
     local_action: command kubectl label node k3os-master k3os.io/upgrade=enabled
   - name: Allow node to manage USB devices
     local_action: command kubectl label node k3os-master smarter-device-manager=enabled
-  - name: Set GitHub token
-    local_action: command export GITHUB_TOKEN={{ github_token }}
   - name: Bootstrap cluster components
-    local_action: command flux bootstrap github --owner=alexwaibel --repository=home-cluster --private=false --personal --path=cluster
+    local_action:
+      module: command
+      cmd: flux bootstrap github --owner=alexwaibel --repository=home-cluster --private=false --personal --path=cluster
+    environment:
+      GITHUB_TOKEN:
+        "{{ github_token }}"
