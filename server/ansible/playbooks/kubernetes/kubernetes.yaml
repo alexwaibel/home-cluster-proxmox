@@ -3,6 +3,7 @@
 - hosts:
   - master
   gather_facts: no
+  no_log: True
   tasks:
   - name: Copy over k3s config for kubectl
     local_action: command scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null rancher@{{ ansible_host }}:/etc/rancher/k3s/k3s.yaml ~/.kube

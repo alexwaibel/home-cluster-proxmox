@@ -17,7 +17,7 @@ spec:
   interval: 5m0s
   values:
     nfs:
-      server: 192.168.1.200
+      server: 192.168.1.11
       path: /mnt/share
     storageClass:
       pathPattern: "${.PVC.namespace}-${.PVC.name}"
