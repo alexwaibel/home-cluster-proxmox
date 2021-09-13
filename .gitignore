@@ -34,3 +34,6 @@ override.tf.json
 terraform.rc
 # ignore packer cache
 packer_cache/
+# Secrets files
+server/packer/images/secrets.*
+server/terraform/secrets.*

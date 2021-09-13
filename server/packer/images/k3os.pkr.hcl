@@ -57,7 +57,7 @@ source "proxmox" "k3os_cloudinit" {
   ]
   boot_wait = "10s"
   http_content = {
-    "/config.yaml" = templatefile("${path.cwd}/server/packer/templates/k3os-config.pkrtpl.hcl", { hostname = k3os-master, node_ip = var.master_node_ip, nameserver = var.nameserver, github_username = var.github_username })
+    "/config.yaml" = templatefile("${path.cwd}/server/packer/templates/k3os-config.pkrtpl.hcl", { hostname = "k3os-master", node_ip = var.master_node_ip, nameserver = var.nameserver, github_username = var.github_username })
   }
 }
 

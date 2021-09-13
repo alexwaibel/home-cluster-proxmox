@@ -64,9 +64,12 @@ The below steps will provision the k3s cluster as well as a reverse proxy and a 
     ```
 1. Set environment variables
     ```bash
-    export PKR_VAR_proxmox_password=(the proxmox terraform user password)
     export TF_VAR_cloudflare_token=(the cloudflare token)
     export GITHUB_TOKEN=(GitHub personal access token)
+    ```
+1. Double check the [packer config](./server/packer/variables.auto.pkrvars.hcl) and add your proxmox password to the packer secrets file
+    ```bash
+    echo "proxmox_password = \"YOUR PASSWORD HERE\"" >> server/packer/images/secrets.auto.pkrvars.hcl
     ```
 1. Build the template images
     ```bash
@@ -78,6 +81,7 @@ The below steps will provision the k3s cluster as well as a reverse proxy and a 
     terraform -chdir=server/terraform/proxmox plan
     terraform -chdir=server/terraform/proxmox apply
     ```
+1. Once everything's deployed, add local DNS records for the service hostnames from the [Caddy config](./server/ansible/playbooks/proxy/caddy.yaml) and point them all to the proxy server's address
 
 ## Acknowledgements
 This cluster has been heavily inspired by the [k8s@home](https://github.com/k8s-at-home) community.
