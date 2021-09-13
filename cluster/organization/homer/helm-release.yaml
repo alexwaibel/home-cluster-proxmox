@@ -24,9 +24,10 @@ spec:
         configMap:
           name: homer-config-map
     ingress:
-      enabled: true
-      hosts:
-        - host: homepage.home.waibel.us
-          paths:
-            - path: /
-              pathType: Prefix
+      main:
+        enabled: true
+        hosts:
+          - host: homepage.home.waibel.us
+            paths:
+              - path: /
+                pathType: Prefix
