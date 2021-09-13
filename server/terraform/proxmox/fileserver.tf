@@ -1,11 +1,6 @@
-variable "fileserver_ip_address" {
-  description = "The IP address to be used for NFS fileserver."
-  type        = string
-}
-
 resource "proxmox_vm_qemu" "fileserver" {
   name        = "fileserver"
-  target_node = "server"
+  target_node = var.proxmox_node
 
   clone   = "debian-cloudinit"
   os_type = "cloud-init"
@@ -21,12 +16,12 @@ resource "proxmox_vm_qemu" "fileserver" {
     connection {
       host  = var.fileserver_ip_address
       type  = "ssh"
-      user  = "debian"
+      user  = var.fileserver_user
       agent = true
     }
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user debian --inventory '../../ansible/inventory' ../../ansible/playbooks/storage/fileserver.yaml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user ${var.fileserver_user} --inventory '../../ansible/inventory' ../../ansible/playbooks/storage/fileserver.yaml"
   }
 }

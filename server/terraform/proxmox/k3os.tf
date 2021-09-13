@@ -1,11 +1,12 @@
-variable "master_node_ip_address" {
-  description = "The IP address to be used for master k3os node."
+variable "github_token" {
+  description = "The GitHub personal access token used by flux."
   type        = string
+  sensitive   = true
 }
 
 resource "proxmox_vm_qemu" "k3os-master" {
   name        = "k3os-master"
-  target_node = "server"
+  target_node = var.proxmox_node
 
   clone = "k3os-cloudinit"
   agent = 1
@@ -20,13 +21,13 @@ resource "proxmox_vm_qemu" "k3os-master" {
     connection {
       host        = var.master_node_ip_address
       type        = "ssh"
-      user        = "rancher"
+      user        = var.k3os_user
       agent       = true
       script_path = "~/is-provisioned.sh"
     }
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user rancher --inventory '../../ansible/inventory' ../../ansible/playbooks/kubernetes/kubernetes.yaml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user ${var.k3os_user} --inventory '../../ansible/inventory' --extra-vars github_token=\"${var.github_token}\" ../../ansible/playbooks/kubernetes/kubernetes.yaml"
   }
 }

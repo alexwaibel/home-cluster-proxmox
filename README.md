@@ -62,14 +62,12 @@ The below steps will provision the k3s cluster as well as a reverse proxy and a 
     ```bash
     pveam download local debian-11-standard_11.0-1_amd64.tar.gz
     ```
-1. Set environment variables
-    ```bash
-    export GITHUB_TOKEN=(GitHub personal access token)
-    ```
-1. Double check the [packer config](./server/packer/variables.auto.pkrvars.hcl), [terraform config](./server/terraform/proxmox/variables.auto.tfvars), and the [proxmox provider config](./server/terraform/proxmox/provider.tf) and then add your secrets to the secrets files
+1. Double check the [packer config](./server/packer/variables.auto.pkrvars.hcl) and [terraform config](./server/terraform/proxmox/variables.auto.tfvars) then add your secrets to the secrets files
     ```bash
     echo "proxmox_password = \"YOUR PASSWORD HERE\"" >> server/packer/images/secrets.auto.pkrvars.hcl
+    echo "proxmox_password = \"YOUR PASSWORD HERE\"" >> server/terraform/proxmox/secrets.auto.tfvars
     echo "cloudflare_token = \"YOUR TOKEN HERE\"" >> server/terraform/proxmox/secrets.auto.tfvars
+    echo "github_token = \"YOUR TOKEN HERE\"" >> server/terraform/proxmox/secrets.auto.tfvars
     ```
 1. Build the template images
     ```bash

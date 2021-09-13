@@ -1,8 +1,3 @@
-variable "caddy_ip_address" {
-  description = "The IP address to be used for Caddy reverse proxy."
-  type        = string
-}
-
 variable "cloudflare_token" {
   description = "The access token used by Caddy to communicate with Cloudflare for DNS cert validation."
   type        = string
@@ -16,7 +11,7 @@ resource "random_password" "password" {
 
 resource "proxmox_lxc" "caddy" {
   hostname    = "caddy"
-  target_node = "server"
+  target_node = var.proxmox_node
 
   ostemplate   = "local:vztmpl/debian-11-standard_11.0-1_amd64.tar.gz"
   unprivileged = true
@@ -30,7 +25,7 @@ resource "proxmox_lxc" "caddy" {
   memory = 512
 
   rootfs {
-    storage = "local-zfs"
+    storage = var.proxmox_disk_storage_pool
     size    = "10G"
   }
 
@@ -48,12 +43,12 @@ resource "proxmox_lxc" "caddy" {
     connection {
       host  = var.caddy_ip_address
       type  = "ssh"
-      user  = "root"
+      user  = var.caddy_user
       agent = true
     }
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user root --inventory '../../ansible/inventory' --extra-vars cloudflare_token=\"${var.cloudflare_token}\" ../../ansible/playbooks/proxy/caddy.yaml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user ${var.caddy_user} --inventory '../../ansible/inventory' --extra-vars cloudflare_token=\"${var.cloudflare_token}\" ../../ansible/playbooks/proxy/caddy.yaml"
   }
 }
