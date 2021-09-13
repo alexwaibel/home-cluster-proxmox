@@ -1,0 +1,54 @@
+---
+
+- hosts:
+  - caddy
+  become: yes
+  no_log: True
+  roles:
+  - role: caddy_ansible.caddy_ansible
+    caddy_packages: ["github.com/caddy-dns/cloudflare"]
+    caddy_setcap: true
+    caddy_systemd_capabilities_enabled: true
+    caddy_systemd_capabilities: "CAP_NET_BIND_SERVICE"
+    caddy_environment_variables:
+      CF_API_TOKEN: '{{ cloudflare_token }}'
+    caddy_config: |
+      {
+        acme_dns cloudflare {env.CF_API_TOKEN}
+      }
+
+      proxmox.home.waibel.us {
+        reverse_proxy 192.168.1.124:8006
+      }
+
+      fileserver.home.waibel.us {
+        reverse_proxy 192.168.1.11
+      }
+
+      wiki.home.waibel.us {
+        reverse_proxy 192.168.1.12
+      }
+
+      hass.home.waibel.us {
+        reverse_proxy 192.168.1.12
+      }
+
+      hass-config.home.waibel.us {
+        reverse_proxy 192.168.1.12
+      }
+
+      hyperion.home.waibel.us {
+        reverse_proxy 192.168.1.12
+      }
+
+      alert-manager.home.waibel.us {
+        reverse_proxy 192.168.1.12
+      }
+
+      grafana.home.waibel.us {
+        reverse_proxy 192.168.1.12
+      }
+
+      prometheus.home.waibel.us {
+        reverse_proxy 192.168.1.12
+      }

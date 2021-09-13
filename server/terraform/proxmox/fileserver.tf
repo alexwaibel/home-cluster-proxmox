@@ -1,26 +1,29 @@
 resource "proxmox_vm_qemu" "fileserver" {
   name        = "fileserver"
-  target_node = "server"
+  target_node = var.proxmox_node
 
   clone   = "debian-cloudinit"
   os_type = "cloud-init"
+  boot    = "c"
 
-  ipconfig0 = "ip=192.168.1.250/24,gw=192.168.1.1"
-  sshkeys   = file("~/.ssh/id_rsa.pub")
+  agent     = 1
+  ipconfig0 = "ip=${var.fileserver_ip_address}/24,gw=192.168.1.1"
+  sshkeys   = file(var.ssh_public_key)
 
-  memory = 2048
-  agent  = 1
+  provisioner "remote-exec" {
+    inline = ["echo provisioned"]
 
-  scsihw = "virtio-scsi-pci"
-
-  disk {
-    size    = "200G"
-    type    = "scsi"
-    storage = "local-zfs"
+    connection {
+      host  = var.fileserver_ip_address
+      type  = "ssh"
+      user  = var.fileserver_user
+      agent = true
+    }
   }
 
-  network {
-    model  = "virtio"
-    bridge = "vmbr0"
+  provisioner "local-exec" {
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user ${var.fileserver_user} --inventory '../../ansible/inventory' ../../ansible/playbooks/storage/fileserver.yaml"
   }
+
+  depends_on = [local_file.ansible_inventory]
 }

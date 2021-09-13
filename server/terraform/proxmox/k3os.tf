@@ -1,23 +1,35 @@
-resource "proxmox_vm_qemu" "k3os" {
-  name        = "k3os"
-  target_node = "server"
+variable "github_token" {
+  description = "The GitHub personal access token used by flux."
+  type        = string
+  sensitive   = true
+}
 
-  iso = "local:iso/k3os-custom.iso"
+resource "proxmox_vm_qemu" "k3os-master" {
+  name        = "k3os-master"
+  target_node = var.proxmox_node
+
+  clone = "k3os-cloudinit"
+  agent = 1
+  boot  = "c"
 
   cores  = 2
   memory = 8192
-  agent  = 1
 
-  scsihw = "virtio-scsi-pci"
+  provisioner "remote-exec" {
+    inline = ["echo provisioned"]
 
-  disk {
-    size    = "50G"
-    type    = "scsi"
-    storage = "local-zfs"
+    connection {
+      host        = var.master_node_ip_address
+      type        = "ssh"
+      user        = var.k3os_user
+      agent       = true
+      script_path = "~/is-provisioned.sh"
+    }
   }
 
-  network {
-    model  = "virtio"
-    bridge = "vmbr0"
+  provisioner "local-exec" {
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user ${var.k3os_user} --inventory '../../ansible/inventory' --extra-vars github_token=\"${var.github_token}\" ../../ansible/playbooks/kubernetes/kubernetes.yaml"
   }
+
+  depends_on = [local_file.ansible_inventory]
 }

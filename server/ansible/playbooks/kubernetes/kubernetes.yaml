@@ -1,0 +1,31 @@
+---
+
+- hosts:
+  - master
+  gather_facts: no
+  tasks:
+  - name: Copy over k3s config for kubectl
+    local_action: command scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null rancher@{{ ansible_host }}:/etc/rancher/k3s/k3s.yaml ~/.kube
+  - name: Rename k3s config
+    local_action: command mv ~/.kube/k3s.yaml ~/.kube/config
+  - name: Replace localhost in k3s config with node address
+    local_action:
+      module: replace
+      path: ~/.kube/config
+      regexp: '127\.0\.0\.1'
+      replace: '{{ ansible_host }}'
+  - name: Wait to allow k3s node to have a chance to come online
+    local_action:
+      module: wait_for
+      timeout: 10
+  - name: Enable k3os auto updates
+    local_action: command kubectl label node k3os-master k3os.io/upgrade=enabled
+  - name: Allow node to manage USB devices
+    local_action: command kubectl label node k3os-master smarter-device-manager=enabled
+  - name: Bootstrap cluster components
+    local_action:
+      module: command
+      cmd: flux bootstrap github --owner=alexwaibel --repository=home-cluster --private=false --personal --path=cluster
+    environment:
+      GITHUB_TOKEN:
+        "{{ github_token }}"

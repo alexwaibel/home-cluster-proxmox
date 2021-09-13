@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    proxmox = {
-      source  = "Telmate/proxmox"
-      version = "2.7.4"
-    }
-  }
-}
-
 variable "proxmox_ip" {
   type        = string
   description = "The IP of the proxmox server."
@@ -29,9 +20,13 @@ variable "proxmox_password" {
   sensitive   = true
 }
 
-provider "proxmox" {
-  pm_api_url      = "https://${var.proxmox_ip}:${var.proxmox_port}/api2/json"
-  pm_user         = var.proxmox_username
-  pm_password     = var.proxmox_password
-  pm_tls_insecure = true
+variable "proxmox_node" {
+  type        = string
+  description = "The name of the proxmox node on which to create the template."
+}
+
+variable "proxmox_iso_storage_pool" {
+  type        = string
+  description = "The name of the proxmox storage pool to store ISOs in."
+  default     = "local"
 }
