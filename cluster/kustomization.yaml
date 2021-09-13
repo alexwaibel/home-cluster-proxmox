@@ -6,6 +6,6 @@ resources:
 - flux-system
 - home
 - media
-- monitoring
+- observability
 - organization
 - storage
