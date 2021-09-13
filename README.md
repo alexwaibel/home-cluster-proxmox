@@ -81,5 +81,7 @@ The below steps will provision the k3s cluster as well as a reverse proxy and a 
     ```
 1. Once everything's deployed, add local DNS records for the service hostnames from the [Caddy config](./server/ansible/playbooks/proxy/caddy.yaml) and point them all to the proxy server's address
 
+1. Go into the proxmox UI and add the USB hardware devices (such as zwave dongle) to the k3os-master node
+
 ## Acknowledgements
 This cluster has been heavily inspired by the [k8s@home](https://github.com/k8s-at-home) community.
