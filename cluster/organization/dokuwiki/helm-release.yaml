@@ -14,10 +14,8 @@ spec:
         namespace: flux-system
   interval: 5m0s
   values:
-    envFrom:
-      - secretRef:
-          name: dokuwiki
     dokuwikiUsername: alex
+    existingSecret: dokuwiki-password
     service:
       type: ClusterIP
     persistence:
