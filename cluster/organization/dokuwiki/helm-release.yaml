@@ -7,9 +7,9 @@ metadata:
 spec:
   chart:
     spec:
-      chart: dev/helm
+      chart: dokuwiki
       sourceRef:
-        kind: GitRepository
+        kind: HelmRepository
         name: bitnami
         namespace: flux-system
   interval: 5m0s
