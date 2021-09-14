@@ -14,6 +14,8 @@ spec:
         namespace: flux-system
   interval: 5m0s
   values:
+    dokuwikiUsername: alex
+    dokuwikiPassword: password
     service:
       type: ClusterIP
     persistence:
