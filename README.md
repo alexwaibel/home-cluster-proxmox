@@ -83,5 +83,14 @@ The below steps will provision the k3s cluster as well as a reverse proxy and a 
 
 1. Go into the proxmox UI and add the USB hardware devices (such as zwave dongle) to the k3os-master node
 
+1. Add the private gpg key to the cluster for SOPS
+    ```
+    # If this is a new machine you can first import with `gpg --import private.key` then `gpg -k to get the fingerprint
+    echo KEY_FP="YOUR GPG PRIVATE KEY FINGERPRINT"
+    gpg --export-secret-keys --armor "${KEY_FP}" |
+    kubectl --kubeconfig=./kubeconfig create secret generic sops-gpg \
+        --namespace=flux-system \
+        --from-file=sops.asc=/dev/stdin
+    ```
 ## Acknowledgements
 This cluster has been heavily inspired by the [k8s@home](https://github.com/k8s-at-home) community.
