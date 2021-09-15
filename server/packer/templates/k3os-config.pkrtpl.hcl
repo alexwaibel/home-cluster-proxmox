@@ -17,6 +17,4 @@ hostname: ${hostname}
 k3os:
   k3os_args:
   - server
-  - "--disable servicelb"
-  - "--disable traefik"
-  - "--disable metrics-server"
+  - "--disable=servicelb,traefik,metrics-server"
