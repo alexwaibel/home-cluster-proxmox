@@ -34,6 +34,7 @@ source "proxmox" "debian_cloudinit" {
   template_name    = "debian-cloudinit"
   unmount_iso      = true
   vm_name          = "provisioning-fileserver-template"
+  vm_id            = 9000
 
   boot_command = [
     "<tab><wait>",
