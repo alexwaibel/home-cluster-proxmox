@@ -1,7 +1,7 @@
-variable "github_token" {
-  description = "The GitHub personal access token used by flux."
+variable "key_fp" {
+  description = "The fingerprint of the GPG key used by SOPS."
   type        = string
-  sensitive   = true
+  default     = "5BFE57B283EBFAA9C14392882895075AEB2D5149"
 }
 
 resource "proxmox_vm_qemu" "k3os-master" {
@@ -28,7 +28,7 @@ resource "proxmox_vm_qemu" "k3os-master" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user ${var.k3os_user} --inventory '../../ansible/inventory' --extra-vars github_token=\"${var.github_token}\" ../../ansible/playbooks/kubernetes/kubernetes.yaml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user ${var.k3os_user} --inventory '../../ansible/inventory' --extra-vars key_fp=\"${var.key_fp}\" ../../ansible/playbooks/kubernetes/kubernetes.yaml"
   }
 
   depends_on = [local_file.ansible_inventory]

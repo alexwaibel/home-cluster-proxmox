@@ -23,10 +23,14 @@
     local_action: command kubectl label node k3os-master k3os.io/upgrade=enabled
   - name: Allow node to manage USB devices
     local_action: command kubectl label node k3os-master smarter-device-manager=enabled
+  - name: Create flux-system namespace
+    local_action: command kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
+  - name: Add GPG key secret
+    local_action: command gpg --export-secret-keys --armor "{{ key_fp }}" |
+      kubectl --kubeconfig=./kubeconfig create secret generic sops-gpg \
+          --namespace=flux-system \
+          --from-file=sops.asc=/dev/stdin
   - name: Bootstrap cluster components
     local_action:
       module: command
-      cmd: flux bootstrap github --owner=alexwaibel --repository=home-cluster --private=false --personal --path=cluster
-    environment:
-      GITHUB_TOKEN:
-        "{{ github_token }}"
+      cmd: kubectl apply --kustomize=./cluster/base/flux-system

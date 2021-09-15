@@ -141,7 +141,6 @@ These tools should be installed on the machine you'll be managing the cluster fr
     echo "proxmox_password = \"YOUR PASSWORD HERE\"" >> server/packer/images/secrets.auto.pkrvars.hcl
     echo "proxmox_password = \"YOUR PASSWORD HERE\"" >> server/terraform/proxmox/secrets.auto.tfvars
     echo "cloudflare_token = \"YOUR TOKEN HERE\"" >> server/terraform/proxmox/secrets.auto.tfvars
-    echo "github_token = \"YOUR TOKEN HERE\"" >> server/terraform/proxmox/secrets.auto.tfvars
     ```
 1. Build the template images
     ```bash
@@ -154,16 +153,6 @@ These tools should be installed on the machine you'll be managing the cluster fr
     terraform -chdir=server/terraform/proxmox apply
     ```
 1. Once everything's deployed, add local DNS records for the service hostnames from the [Caddy config](./server/ansible/playbooks/proxy/caddy.yaml) and point them all to the proxy server's address
-
-1. Add the private gpg key to the cluster for SOPS
-    ```
-    # If this is a new machine you can first import with `gpg --import private.key` then `gpg -k to get the fingerprint
-    echo KEY_FP="YOUR GPG PRIVATE KEY FINGERPRINT"
-    gpg --export-secret-keys --armor "${KEY_FP}" |
-    kubectl --kubeconfig=./kubeconfig create secret generic sops-gpg \
-        --namespace=flux-system \
-        --from-file=sops.asc=/dev/stdin
-    ```
 
 1. Add the USB devices to the master node
     ```
