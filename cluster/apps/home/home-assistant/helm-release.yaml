@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home
+spec:
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: home-assistant
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      version: 6.3.1
+  interval: 5m0s
+  values:
+    ingress:
+      enabled: true
+      hosts:
+        - host: "hass.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+    persistence:
+      config:
+        enabled: true
+        existingClaim: home-assistant-config
+    resources:
+      limits:
+        smarter-devices/ttyUSB0: 1
+        smarter-devices/ttyUSB1: 1
+      requests:
+        smarter-devices/ttyUSB0: 1
+        smarter-devices/ttyUSB1: 1
+    addons:
+      codeserver:
+        enabled: true
+        workingDir: "/config"
+        args:
+          - --auth
+          - "none"
+        ingress:
+          enabled: true
+          hosts:
+            - host: "hass-config.${SECRET_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+        volumeMounts:
+          - name: config
+            mountPath: /config

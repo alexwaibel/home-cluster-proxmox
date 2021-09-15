@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: hyperion-ng
+  namespace: media
+spec:
+  chart:
+    spec:
+      chart: hyperion-ng
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+  interval: 5m0s
+  values:
+    resources:
+      limits:
+        smarter-devices/ttyUSB2: 1
+        smarter-devices/video0: 1
+        smarter-devices/video1: 1
+      requests:
+        smarter-devices/ttyUSB2: 1
+    ingress:
+      main:
+        enabled: true
+        hosts:
+          - host: "hyperion.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+    persistence:
+      config:
+        enabled: true
+        existingClaim: hyperion-ng-config

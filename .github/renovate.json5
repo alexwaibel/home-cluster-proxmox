@@ -9,21 +9,48 @@
   "suppressNotifications": ["prIgnoreNotification"],
   // only rebase PRs when there's a conflict
   "rebaseWhen": "conflicted",
-  "kubernetes": {
-    "fileMatch": ["cluster/.+\\.yaml$"],
-    "ignorePaths": [
-      "cluster/flux-system/"
+  "helm-values": {
+    "fileMatch": [
+      "cluster/.+/helm-release\\.yaml$"
     ]
   },
-  "helm-values": {
-    "fileMatch": ["cluster/.+helm-release\\.yaml$"]
+  "kubernetes": {
+    "fileMatch": [
+      "cluster/.+\\.yaml$"
+    ],
+    "ignorePaths": [
+      "cluster/base/"
+    ]
   },
   "regexManagers": [
     // regexManager to read and process HelmRelease files
     {
-      "fileMatch": ["cluster/.+helm-release\\.yaml$"],
+      "fileMatch": [
+        "cluster/.+\\.yaml$"
+      ],
       "matchStrings": [
+        // helm releases
         "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    // regexManager to read and process cert-manager CRD's
+    {
+      "fileMatch": [
+        "cluster/crds/cert-manager/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    // regexManager to read and process Traefik CRD's
+    {
+      "fileMatch": [
+        "cluster/crds/traefik/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n *tag: v(?<currentValue>.*)\n"
       ],
       "datasourceTemplate": "helm"
     }

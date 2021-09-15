@@ -28,8 +28,8 @@ jobs:
         delete-branch: true
         title: "(deps) chore: update renovate annotations"
         signoff: true
-        committer: "Alex Waibel <alexwaibel@users.noreply.github.com>"
-        author: "Alex Waibel <alexwaibel@users.noreply.github.com>"
+        committer: GitHub <noreply@github.com>
+        author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
         assignees: "alexwaibel"
         commit-message: "(deps) chore: update renovate annotations"
         body: |
