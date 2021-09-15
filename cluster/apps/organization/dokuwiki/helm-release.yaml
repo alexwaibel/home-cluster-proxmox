@@ -10,7 +10,7 @@ spec:
       chart: dokuwiki
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: bitnami-charts
         namespace: flux-system
   interval: 5m0s
   values:

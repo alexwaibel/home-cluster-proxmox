@@ -10,7 +10,7 @@ spec:
       chart: hyperion-ng
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: k8s-at-home-charts
         namespace: flux-system
   interval: 5m0s
   values:
