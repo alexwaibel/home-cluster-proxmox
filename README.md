@@ -81,8 +81,6 @@ The below steps will provision the k3s cluster as well as a reverse proxy and a 
     ```
 1. Once everything's deployed, add local DNS records for the service hostnames from the [Caddy config](./server/ansible/playbooks/proxy/caddy.yaml) and point them all to the proxy server's address
 
-1. Go into the proxmox UI and add the USB hardware devices (such as zwave dongle) to the k3os-master node
-
 1. Add the private gpg key to the cluster for SOPS
     ```
     # If this is a new machine you can first import with `gpg --import private.key` then `gpg -k to get the fingerprint
@@ -92,5 +90,13 @@ The below steps will provision the k3s cluster as well as a reverse proxy and a 
         --namespace=flux-system \
         --from-file=sops.asc=/dev/stdin
     ```
+
+1. Add the USB devices to the master node
+    ```
+    update VM 107: -usb0 host=10c4:8a2a
+    update VM 107: -usb1 host=534d:2109
+    update VM 107: -usb2 host=1a86:7523
+    ```
+
 ## Acknowledgements
 This cluster has been heavily inspired by the [k8s@home](https://github.com/k8s-at-home) community.
