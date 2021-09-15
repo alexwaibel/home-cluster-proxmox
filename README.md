@@ -116,6 +116,7 @@ These tools should be installed on the machine you'll be managing the cluster fr
     # Add to ssh agent (you may need to enable the agent separately)
     ssh-add ~/.ssh/id_ed25519
     ```
+- You must have the SOPS GPG private key imported
 - Install the `pre-commit` hooks to ensure linting runs on every commit as well as to ensure unencrypted secrets are not committed
     ```bash
     pre-commit install-hooks
