@@ -6,6 +6,7 @@ resources:
   - external-dns-charts.yaml
   - grafana-charts.yaml
   - hajimari-charts.yaml
+  - jetstack-charts.yaml
   - k8s-at-home-charts.yaml
   - metallb-charts.yaml
   - metrics-server-charts.yaml
