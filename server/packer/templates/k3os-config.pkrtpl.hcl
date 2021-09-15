@@ -13,3 +13,10 @@ write_files:
   owner: root
   permissions: '0644'
 hostname: ${hostname}
+
+k3os:
+  k3os_args:
+  - server
+  - "--disable servicelb"
+  - "--disable traefik"
+  - "--disable metrics-server"

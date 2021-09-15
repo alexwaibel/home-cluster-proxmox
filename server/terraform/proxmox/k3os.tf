@@ -28,7 +28,7 @@ resource "proxmox_vm_qemu" "k3os-master" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user ${var.k3os_user} --inventory '../../ansible/inventory' --extra-vars key_fp=\"${var.key_fp}\" ../../ansible/playbooks/kubernetes/kubernetes.yaml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --user ${var.k3os_user} --inventory '../../ansible/inventory' --extra-vars \"key_fp=${var.key_fp} repo_dir=${path.cwd}\" ../../ansible/playbooks/kubernetes/kubernetes.yaml"
   }
 
   depends_on = [local_file.ansible_inventory]

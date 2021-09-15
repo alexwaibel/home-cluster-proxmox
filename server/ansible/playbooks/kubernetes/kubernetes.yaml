@@ -3,7 +3,6 @@
 - hosts:
   - master
   gather_facts: no
-  no_log: True
   tasks:
   - name: Copy over k3s config for kubectl
     local_action: command scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null rancher@{{ ansible_host }}:/etc/rancher/k3s/k3s.yaml ~/.kube
@@ -24,9 +23,14 @@
   - name: Allow node to manage USB devices
     local_action: command kubectl label node k3os-master smarter-device-manager=enabled
   - name: Create flux-system namespace
-    local_action: command kubectl create namespace flux-system
+    local_action: shell kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
   - name: Add GPG key secret
-    local_action: command gpg --export-secret-keys --armor "{{ key_fp }}" |
+    local_action: shell gpg --export-secret-keys --armor "{{ key_fp }}" |
       kubectl create secret generic sops-gpg --namespace=flux-system --from-file=sops.asc=/dev/stdin
-  - name: Bootstrap cluster components
-    local_action: command kubectl apply --kustomize=../../../../cluster/base/flux-system
+  - name: Bootstrap cluster components (fails the first time due to race conditions with the Flux CRDs)
+    local_action:
+      module: command
+      cmd: kubectl apply --kustomize={{ repo_dir }}/cluster/base/flux-system
+    ignore_errors: True
+  - name: Finish bootstrapping cluster components
+    local_action: command kubectl apply --kustomize={{ repo_dir }}/cluster/base/flux-system
