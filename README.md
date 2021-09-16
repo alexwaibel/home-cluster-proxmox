@@ -140,6 +140,7 @@ These tools should be installed on the machine you'll be managing the cluster fr
 1. Double check the [packer config](./server/packer/variables.auto.pkrvars.hcl) and [terraform config](./server/terraform/proxmox/variables.auto.tfvars) then add your secrets to the secrets files
     ```bash
     echo "proxmox_password = \"YOUR PASSWORD HERE\"" >> server/packer/images/secrets.auto.pkrvars.hcl
+    echo "proxmox_password = \"your-domain.com\"" >> server/packer/images/secrets.auto.pkrvars.hcl
     echo "proxmox_password = \"YOUR PASSWORD HERE\"" >> server/terraform/proxmox/secrets.auto.tfvars
     echo "cloudflare_token = \"YOUR TOKEN HERE\"" >> server/terraform/proxmox/secrets.auto.tfvars
     ```
