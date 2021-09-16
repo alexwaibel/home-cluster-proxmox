@@ -1,3 +1,13 @@
+variable "proxmox_ip" {
+  type        = string
+  description = "The IP of the proxmox server."
+}
+
+variable "proxmox_username" {
+  type        = string
+  description = "The user used to connect to proxmox."
+}
+
 variable "proxmox_node" {
   type        = string
   description = "The name of the proxmox node."

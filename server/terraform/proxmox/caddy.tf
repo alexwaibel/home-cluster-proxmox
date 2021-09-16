@@ -12,6 +12,7 @@ resource "random_password" "password" {
 resource "proxmox_lxc" "caddy" {
   hostname    = "caddy"
   target_node = var.proxmox_node
+  vmid        = 800
 
   ostemplate   = "local:vztmpl/debian-11-standard_11.0-1_amd64.tar.gz"
   unprivileged = true

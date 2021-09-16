@@ -7,20 +7,10 @@ terraform {
   }
 }
 
-variable "proxmox_ip" {
-  type        = string
-  description = "The IP of the proxmox server."
-}
-
 variable "proxmox_port" {
   type        = string
   description = "The port used by the proxmox management interface."
   default     = "8006"
-}
-
-variable "proxmox_username" {
-  type        = string
-  description = "The user used to connect to proxmox."
 }
 
 variable "proxmox_password" {

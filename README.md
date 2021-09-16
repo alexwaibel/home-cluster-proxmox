@@ -154,13 +154,6 @@ These tools should be installed on the machine you'll be managing the cluster fr
     ```
 1. Once everything's deployed, add local DNS records for the service hostnames from the [Caddy config](./server/ansible/playbooks/proxy/caddy.yaml) and point them all to the proxy server's address
 
-1. Add the USB devices to the master node
-    ```
-    qm set 102 -usb0 host=10c4:8a2a
-    qm set 102 -usb1 host=534d:2109
-    qm set 102 -usb2 host=1a86:7523
-    ```
-
 ## Thanks
 
 This cluster has been heavily inspired by the [k8s@home](https://github.com/k8s-at-home) community. Thank you to everyone that contributes there as well as to the authors of the open source technologies which operate this cluster.
