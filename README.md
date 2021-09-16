@@ -44,15 +44,13 @@ The Git repository contains the following directories under `cluster` and are or
 cluster
 ├── apps
 │   ├── default
-│   ├── networking
-│   └── system-upgrade
+│   └── networking
 ├── base
 │   └── flux-system
 ├── core
 │   ├── cert-manager
 │   ├── metallb-system
-│   ├── namespaces
-│   └── system-upgrade
+│   └── namespaces
 └── crds
     └── cert-manager
 ```
