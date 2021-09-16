@@ -158,9 +158,9 @@ These tools should be installed on the machine you'll be managing the cluster fr
 
 1. Add the USB devices to the master node
     ```
-    update VM 107: -usb0 host=10c4:8a2a
-    update VM 107: -usb1 host=534d:2109
-    update VM 107: -usb2 host=1a86:7523
+    qm set 102 -usb0 host=10c4:8a2a
+    qm set 102 -usb1 host=534d:2109
+    qm set 102 -usb2 host=1a86:7523
     ```
 
 ## Thanks
