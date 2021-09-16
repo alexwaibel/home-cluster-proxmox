@@ -33,7 +33,7 @@ source "proxmox" "debian_cloudinit" {
   ssh_wait_timeout = "10000s"
   template_name    = "debian-cloudinit"
   unmount_iso      = true
-  vm_name          = "provisioning-fileserver-template"
+  vm_name          = "provisioning-debian-template"
   vm_id            = 9000
 
   boot_command = [

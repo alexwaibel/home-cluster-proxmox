@@ -15,6 +15,11 @@ write_files:
 hostname: ${hostname}
 
 k3os:
-  k3os_args:
+  k3s_args:
   - server
-  - "--disable=servicelb,traefik,metrics-server"
+  - "--disable"
+  - "traefik"
+  - "--disable"
+  - "servicelb"
+  - "--disable"
+  - "metrics-server"

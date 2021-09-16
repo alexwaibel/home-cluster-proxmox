@@ -102,6 +102,7 @@ These tools should be installed on the machine you'll be managing the cluster fr
 | [pre-commit](https://github.com/pre-commit/pre-commit)                                                                                  | Runs checks before `git commit`                                                                                                      |
 | [helm](https://helm.sh/)                                                                                                                | Manages Kubernetes applications                                                                                                      |
 | [prettier](https://github.com/prettier/prettier)                                                                                        | Formats code                                                                                                                         |
+| [task](https://taskfile.dev/)                                                                                                           | A task runner comparable to GNU make                                                                                                 |                                                                                                                      |
 
 
 ### Prerequisites
@@ -119,11 +120,11 @@ These tools should be installed on the machine you'll be managing the cluster fr
 - You must have the SOPS GPG private key imported
 - Install the `pre-commit` hooks to ensure linting runs on every commit as well as to ensure unencrypted secrets are not committed
     ```bash
-    pre-commit install-hooks
+    task pre-commit:init
     ```
 - Install Ansible dependencies
     ```bash
-    ansible-galaxy install -r ansible/requirements.yml
+    task ansible:install
     ```
 
 ### Provisioning cluster
@@ -146,13 +147,13 @@ These tools should be installed on the machine you'll be managing the cluster fr
     ```
 1. Build the template images
     ```bash
-    packer build server/packer/images
+    task packer:all
     ```
 1. Check the terraform plan and apply it
     ```bash
-    terraform -chdir=server/terraform/proxmox init
-    terraform -chdir=server/terraform/proxmox plan
-    terraform -chdir=server/terraform/proxmox apply
+    task terraform:init
+    task terraform:plan
+    task terraform:apply
     ```
 1. Once everything's deployed, add local DNS records for the service hostnames from the [Caddy config](./server/ansible/playbooks/proxy/caddy.yaml) and point them all to the proxy server's address
 

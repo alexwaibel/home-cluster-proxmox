@@ -1,0 +1,13 @@
+---
+version: "3"
+
+vars:
+  ANSIBLE_DIR: "{{.SERVER_DIR}}/ansible"
+
+tasks:
+  install:
+    desc: Install ansible dependencies
+    dir: "{{.ANSIBLE_DIR}}"
+    cmds:
+      - "ansible-galaxy install -r requirements.yaml"
+    silent: true

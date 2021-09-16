@@ -1,0 +1,30 @@
+---
+version: "3"
+
+vars:
+  TERRAFORM_DIR: "{{.SERVER_DIR}}/terraform/proxmox"
+
+tasks:
+  apply:
+    desc: Apply terraform changes
+    cmds:
+      - "terraform -chdir={{.TERRAFORM_DIR}} apply"
+    silent: true
+
+  destroy:
+    desc: destroy terraform resources
+    cmds:
+      - "terraform -chdir={{.TERRAFORM_DIR}} destroy"
+    silent: true
+
+  init:
+    desc: Initialize terraform
+    cmds:
+      - "terraform -chdir={{.TERRAFORM_DIR}} init"
+    silent: true
+
+  plan:
+    desc: Plan terraform changes
+    cmds:
+      - "terraform -chdir={{.TERRAFORM_DIR}} plan"
+    silent: true
