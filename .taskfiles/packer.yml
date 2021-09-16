@@ -12,7 +12,7 @@ tasks:
     silent: true
 
   debian:
-    desc: Build degian image
+    desc: Build debian image
     cmds:
       - "packer build --only=proxmox.debian_cloudinit server/packer/images"
     silent: true
