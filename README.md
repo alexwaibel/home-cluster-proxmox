@@ -102,8 +102,7 @@ These tools should be installed on the machine you'll be managing the cluster fr
 | [pre-commit](https://github.com/pre-commit/pre-commit)                                                                                  | Runs checks before `git commit`                                                                                                      |
 | [helm](https://helm.sh/)                                                                                                                | Manages Kubernetes applications                                                                                                      |
 | [prettier](https://github.com/prettier/prettier)                                                                                        | Formats code                                                                                                                         |
-| [task](https://taskfile.dev/)                                                                                                           | A task runner comparable to GNU make                                                                                                 |                                                                                                                      |
-
+| [go-task](https://taskfile.dev/)                                                                                                        | A task runner comparable to GNU make                                                                                                 |
 
 ### Prerequisites
 
