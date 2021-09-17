@@ -15,7 +15,7 @@ spec:
   tls:
     - hosts:
         - "traefik-dashboard.${SECRET_DOMAIN}"
-      secretName: "traefik-dashboard-${SECRET_DOMAIN/./-/g}-tls"
+      secretName: "traefik-dashboard-${SECRET_DOMAIN//./-}-tls"
   rules:
     - host: "traefik.${SECRET_DOMAIN}"
       http:
