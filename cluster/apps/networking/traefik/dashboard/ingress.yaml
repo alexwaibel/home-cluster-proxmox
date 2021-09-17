@@ -5,7 +5,6 @@ metadata:
   name: traefik-dashboard
   namespace: networking
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-production"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     hajimari.io/enable: "true"
     hajimari.io/icon: "web"
@@ -14,8 +13,8 @@ spec:
   ingressClassName: "traefik"
   tls:
     - hosts:
-        - "traefik-dashboard.${SECRET_DOMAIN}"
-      secretName: "traefik-dashboard-${SECRET_DOMAIN//./-}-tls"
+        - "traefik.${SECRET_DOMAIN}"
+      secretName: "traefik-${SECRET_DOMAIN//./-}-tls"
   rules:
     - host: "traefik.${SECRET_DOMAIN}"
       http:
