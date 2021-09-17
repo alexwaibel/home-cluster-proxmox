@@ -5,36 +5,45 @@ metadata:
   name: kube-prometheus-stack
   namespace: observability
 spec:
-  interval: 5m0s
+  interval: 5m
   chart:
     spec:
       # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
-      version: 18.0.6
+      version: 18.0.8
       sourceRef:
         kind: HelmRepository
         name: prometheus-community-charts
         namespace: flux-system
+      interval: 5m
   values:
+    fullnameOverride: prometheus
     alertmanager:
       config:
+        global:
+          resolve_timeout: 5m
+        receivers:
+          - name: "null"
         route:
+          group_by: ["alertname", "job"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 6h
           routes:
-          - match:
-              alertname: Watchdog
-            receiver: 'null'
-          - match:
-              alertname: KubeMemoryOvercommit
-            receiver: 'null'
-          - match:
-              alertname: KubeCPUOvercommit
-            receiver: 'null'
+            - receiver: "null"
+              match:
+                alertname: Watchdog
       ingress:
         enabled: true
-        ingressClassName: "traefik"
-        hosts:
-        - "alert-manager.${SECRET_DOMAIN}"
         pathType: Prefix
+        ingressClassName: "traefik"
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hosts:
+          - "alert-manager.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - "alert-manager.${SECRET_DOMAIN}"
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -46,41 +55,74 @@ spec:
     nodeExporter:
       serviceMonitor:
         relabelings:
-        - action: replace
-          regex: (.*)
-          replacement: $1
-          sourceLabels:
-          - __meta_kubernetes_pod_node_name
-          targetLabel: kubernetes_node
+          - action: replace
+            regex: (.*)
+            replacement: $1
+            sourceLabels:
+              - __meta_kubernetes_pod_node_name
+            targetLabel: kubernetes_node
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
     grafana:
       enabled: true
       ingress:
         enabled: true
+        pathType: Prefix
         ingressClassName: "traefik"
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
-        - "grafana.${SECRET_DOMAIN}"
+          - "grafana.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - "grafana.${SECRET_DOMAIN}"
     kubelet:
       enabled: true
       serviceMonitor:
         metricRelabelings:
-        - action: replace
-          sourceLabels:
-          - node
-          targetLabel: instance
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
+    kubeApiServer:
+      enabled: true
     kubeControllerManager:
-      enabled: false
+      enabled: true
+      endpoints:
+        - 192.168.1.12
     kubeScheduler:
-      enabled: false
+      enabled: true
+      endpoints:
+        - 192.168.1.12
+    kubeProxy:
+      enabled: true
+      endpoints:
+        - 192.168.1.12
     kubeEtcd:
-      enabled: false
+      enabled: true
+      endpoints:
+        - 192.168.1.12
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
     prometheus:
       ingress:
         enabled: true
-        ingressClassName: "traefik"
-        hosts:
-        - "prometheus.${SECRET_DOMAIN}"
         pathType: Prefix
+        ingressClassName: "traefik"
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hosts:
+          - "prometheus.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - "prometheus.${SECRET_DOMAIN}"
       prometheusSpec:
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
         retention: 14d
         walCompression: true
         storageSpec:

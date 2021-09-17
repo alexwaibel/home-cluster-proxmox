@@ -24,11 +24,19 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "television-ambient-light"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "hyperion.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
+        tls:
+          - hosts:
+              - "hyperion.${SECRET_DOMAIN}"
     persistence:
       config:
         enabled: true

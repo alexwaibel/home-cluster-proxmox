@@ -17,12 +17,21 @@ spec:
   interval: 5m0s
   values:
     ingress:
-      enabled: true
-      hosts:
-        - host: "hass.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "home-assistant"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hosts:
+          - host: "hass.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "hass.${SECRET_DOMAIN}"
     persistence:
       config:
         enabled: true

@@ -22,4 +22,13 @@ spec:
       existingClaim: dokuwiki-data
     ingress:
       enabled: true
+      annotations:
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "file-document"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hostname: "wiki.${SECRET_DOMAIN}"
+      path: /
+      certManager: true
+      tls: true
+      extraTls:
+        - "wiki.${SECRET_DOMAIN}"
