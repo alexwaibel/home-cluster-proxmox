@@ -15,7 +15,7 @@ spec:
   interval: 5m0s
   values:
     dokuwikiUsername: alex
-    existingSecret: dokuwiki-password
+    existingSecret: DOKUWIKI_PASSWORD
     service:
       type: ClusterIP
     persistence:
