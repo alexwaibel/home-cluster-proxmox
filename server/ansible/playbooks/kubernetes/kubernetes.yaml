@@ -15,7 +15,10 @@
       regexp: '127\.0\.0\.1'
       replace: '{{ ansible_host }}'
   - name: Set k3s config file permissions
-    local_action: command chmod go-r ~/.kube/config
+    local_action:
+      module: file
+      path: ~/.kube/config
+      mode: '644'
   - name: Wait to allow k3s node to have a chance to come online
     local_action:
       module: wait_for
