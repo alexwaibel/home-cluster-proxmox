@@ -5,25 +5,27 @@ metadata:
   name: home-assistant
   namespace: home
 spec:
+  interval: 5m
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: home-assistant
+      version: 6.3.1
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
-      version: 6.3.1
-  interval: 5m0s
+      interval: 5m
   values:
     ingress:
       main:
         enabled: true
         ingressClassName: "traefik"
         annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hajimari.io/enable: "true"
           hajimari.io/icon: "home-assistant"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "hass.${SECRET_DOMAIN}"
             paths:
@@ -53,6 +55,10 @@ spec:
           - "none"
         ingress:
           enabled: true
+          ingressClassName: "traefik"
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hosts:
             - host: "hass-config.${SECRET_DOMAIN}"
               paths:

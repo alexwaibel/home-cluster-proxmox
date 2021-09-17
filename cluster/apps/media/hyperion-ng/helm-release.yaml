@@ -5,14 +5,16 @@ metadata:
   name: hyperion-ng
   namespace: media
 spec:
+  interval: 5m
   chart:
     spec:
       chart: hyperion-ng
+      version: 5.0.1
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
-  interval: 5m0s
+      interval: 5m
   values:
     resources:
       limits:
@@ -26,9 +28,10 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hajimari.io/enable: "true"
           hajimari.io/icon: "television-ambient-light"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "hyperion.${SECRET_DOMAIN}"
             paths:
