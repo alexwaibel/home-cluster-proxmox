@@ -14,7 +14,6 @@ The cluster runs on a single [k3s](https://github.com/k3s-io/k3s) node running i
 
 - k3s (VM)
 - NFS fileserver (VM)
-- Caddy (LXC)
 
 ### Hardware
 
@@ -27,9 +26,9 @@ The cluster runs on a single [k3s](https://github.com/k3s-io/k3s) node running i
 
 ### Networking
 
-1. This cluster uses the default Traefik ingress controller deployed by k3s to configure hostnames using a subdomain of my registered tld.
-1. Then Caddy (a build with the [Cloudflare module](https://github.com/caddy-dns/cloudflare) included) uses LetsEncrypt to provide certificates for all my services without exposing any ports on my router to the public internet.
-1. I then map each hostname to the Caddy server in my DNS server (Pi-hole).
+1. This cluster uses a custom Traefik ingress controller to configure hostnames using a subdomain of my registered tld.
+1. Traefik uses cert-manager with LetsEncrypt and Cloudflare ACME DNS solver to provide certificates for all my services without exposing any ports on my router to the public internet.
+1. I then add each ingress hostname as a local record in my DNS server (Pi-hole).
 
 #### Repository Structure
 
@@ -126,21 +125,11 @@ These tools should be installed on the machine you'll be managing the cluster fr
 
 ### Provisioning cluster
 
-1. Create a user in Proxmox for terraform
+1. Double check the [packer config](./server/packer/variables.auto.pkrvars.hcl), [terraform config](./server/terraform/proxmox/variables.auto.tfvars), and [cluster settings](./cluster/base/cluster-settings.yaml), then add your secrets to the secrets files
     ```bash
-    pveum user add terraform@pve --password (the proxmox terraform user password)
-    pveum aclmod / -user terraform@pve -role Administrator
-    ```
-1. Download the required debian LXC template
-    ```bash
-    pveam download local debian-11-standard_11.0-1_amd64.tar.gz
-    ```
-1. Double check the [packer config](./server/packer/variables.auto.pkrvars.hcl) and [terraform config](./server/terraform/proxmox/variables.auto.tfvars) then add your secrets to the secrets files
-    ```bash
-    echo "proxmox_password = \"YOUR PASSWORD HERE\"" >> server/packer/images/secrets.auto.pkrvars.hcl
-    echo "proxmox_password = \"your-domain.com\"" >> server/packer/images/secrets.auto.pkrvars.hcl
-    echo "proxmox_password = \"YOUR PASSWORD HERE\"" >> server/terraform/proxmox/secrets.auto.tfvars
-    echo "cloudflare_token = \"YOUR TOKEN HERE\"" >> server/terraform/proxmox/secrets.auto.tfvars
+    echo "proxmox_password = \"TERRAFORM ADMIN USER PASSWORD\"" >> server/terraform/proxmox/secrets.auto.tfvars
+    echo "proxmox_password = \"TERRAFORM ADMIN USER PASSWORD\"" >> server/packer/images/secrets.auto.pkrvars.hcl
+    echo "domain = \"your-domain.com\"" >> server/packer/images/secrets.auto.pkrvars.hcl
     ```
 1. Build the template images
     ```bash
@@ -152,7 +141,7 @@ These tools should be installed on the machine you'll be managing the cluster fr
     task terraform:plan
     task terraform:apply
     ```
-1. Once everything's deployed, add local DNS records for the service hostnames from the [Caddy config](./server/ansible/playbooks/proxy/caddy.yaml) and point them all to the proxy server's address
+1. Add local DNS records for the service hostnames and point them at Traefik
 
 ## Thanks
 

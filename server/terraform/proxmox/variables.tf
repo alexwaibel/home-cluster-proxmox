@@ -25,17 +25,6 @@ variable "ssh_public_key" {
   default     = "~/.ssh/id_rsa.pub"
 }
 
-variable "caddy_ip_address" {
-  description = "The IP address to be used for Caddy reverse proxy."
-  type        = string
-}
-
-variable "caddy_user" {
-  description = "The user account for the caddy machine."
-  type        = string
-  default     = "root"
-}
-
 variable "fileserver_ip_address" {
   description = "The IP address to be used for NFS fileserver."
   type        = string

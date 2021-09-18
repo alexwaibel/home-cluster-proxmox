@@ -17,38 +17,6 @@
         acme_dns cloudflare {env.CF_API_TOKEN}
       }
 
-      proxmox.home.waibel.us {
-        reverse_proxy 192.168.1.124:8006
-      }
-
-      fileserver.home.waibel.us {
-        reverse_proxy 192.168.1.11
-      }
-
-      wiki.home.waibel.us {
-        reverse_proxy 192.168.1.150
-      }
-
-      hass.home.waibel.us {
-        reverse_proxy 192.168.1.150
-      }
-
-      hass-config.home.waibel.us {
-        reverse_proxy 192.168.1.150
-      }
-
-      hyperion.home.waibel.us {
-        reverse_proxy 192.168.1.150
-      }
-
-      alert-manager.home.waibel.us {
-        reverse_proxy 192.168.1.150
-      }
-
-      grafana.home.waibel.us {
-        reverse_proxy 192.168.1.150
-      }
-
-      prometheus.home.waibel.us {
-        reverse_proxy 192.168.1.150
+      subdomain.example.com {
+        reverse_proxy 192.168.1.123:5000
       }
