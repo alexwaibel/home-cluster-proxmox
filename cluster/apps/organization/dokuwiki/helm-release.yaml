@@ -34,3 +34,7 @@ spec:
       path: /
       certManager: true
       tls: true
+      extaTls:
+        - "grafana.${SECRET_DOMAIN}"
+      secrets:
+        - "grafana-${SECRET_DOMAIN//./-}-tls"
