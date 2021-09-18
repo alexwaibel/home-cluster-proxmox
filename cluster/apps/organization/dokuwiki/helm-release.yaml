@@ -34,7 +34,3 @@ spec:
       path: /
       certManager: true
       tls: true
-      extaTls:
-        - "wiki.${SECRET_DOMAIN}"
-      secrets:
-        - "wiki-${SECRET_DOMAIN//./-}-tls"

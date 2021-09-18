@@ -40,6 +40,8 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-staging"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "alert-circle"
         hosts:
           - "alert-manager.${SECRET_DOMAIN}"
         tls:
@@ -74,6 +76,8 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-staging"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "view-dashboard-variant"
         hosts:
           - "grafana.${SECRET_DOMAIN}"
         tls:
@@ -118,6 +122,8 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-staging"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "database-arrow-up"
         hosts:
           - "prometheus.${SECRET_DOMAIN}"
         tls:
