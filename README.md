@@ -1,3 +1,5 @@
+# Home Cluster
+
 My homelab Kubernetes cluster in declarative state. [Flux](https://github.com/fluxcd/flux2) automatically deploys any changes to the `/cluster` directory.
 
 ## Overview
@@ -8,7 +10,8 @@ My homelab Kubernetes cluster in declarative state. [Flux](https://github.com/fl
 
 ## Architecture
 
-The cluster runs on a single [k3s](https://github.com/k3s-io/k3s) node running in a [k3os](https://github.com/rancher/k3os) VM on a single [Proxmox](https://pve.proxmox.com/) host. I'm currently running the entire cluster on my previous desktop machine.
+The cluster runs on a single [k3s](https://github.com/k3s-io/k3s) node running in a [k3os](https://github.com/rancher/k3os) VM
+on a single [Proxmox](https://pve.proxmox.com/) host. I'm currently running the entire cluster on my previous desktop machine.
 
 ### Virtual Hosts
 
@@ -39,7 +42,7 @@ The Git repository contains the following directories under `cluster` and are or
 - **core** directory (depends on **crds**) are important infrastructure applications (grouped by namespace) that should never be pruned by Flux
 - **apps** directory (depends on **core**) is where your common applications (grouped by namespace) could be placed, Flux will prune resources here if they are not tracked by Git anymore
 
-```
+```text
 cluster
 ├── apps
 │   ├── default
@@ -60,7 +63,7 @@ As well as the following directories under `server` which is used to provision t
 - **terraform** directory contains Terraform templates used to deploy the infrastructure to Proxmox
 - **ansible** directory contains Ansible playbooks for configuring the machines once deployed
 
-```
+```text
 server
 ├── ansible
 │   ├── inventory
@@ -87,8 +90,10 @@ The below steps will provision the k3s cluster as well as a fileserver.
 
 These tools should be installed on the machine you'll be managing the cluster from.
 
+<!-- markdownlint-disable MD013 -->
+
 | Tool                                                                                                                                    | Description                                                                                                                          |
-|-----------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started)                                   | Uses the [Proxmox provisioner](https://registry.terraform.io/providers/Telmate/proxmox/latest/docs) to create VMs and LXC containers |
 | [Packer](https://learn.hashicorp.com/tutorials/packer/get-started-install-cli)                                                          | Creates custom Proxmox template images                                                                                               |
 | [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip) | Performs configuration on machines once the OS is installed                                                                          |
@@ -101,48 +106,64 @@ These tools should be installed on the machine you'll be managing the cluster fr
 | [prettier](https://github.com/prettier/prettier)                                                                                        | Formats code                                                                                                                         |
 | [go-task](https://taskfile.dev/)                                                                                                        | A task runner comparable to GNU make                                                                                                 |
 
+<!-- markdownlint-enable MD013 -->
+
 ### Prerequisites
 
 - You must have a server with Proxmox VE installed
-    - Must use ZFS for storage
-    - Must have sufficient storage space (I use RAID10 with 4x12tb drives)
+  - Must use ZFS for storage
+  - Must have sufficient storage space (I use RAID10 with 4x12tb drives)
 - You must have a public/private ssh key-pair generated and added to ssh agent
-    ```bash
-    # Generate key
-    ssh-keygen -t ed25519 -C "your_email@example.com"
-    # Add to ssh agent (you may need to enable the agent separately)
-    ssh-add ~/.ssh/id_ed25519
-    ```
+
+  ```bash
+  # Generate key
+  ssh-keygen -t ed25519 -C "your_email@example.com"
+  # Add to ssh agent (you may need to enable the agent separately)
+  ssh-add ~/.ssh/id_ed25519
+  ```
+
 - You must have the SOPS GPG private key imported
 - Install the `pre-commit` hooks to ensure linting runs on every commit as well as to ensure unencrypted secrets are not committed
-    ```bash
-    task pre-commit:init
-    ```
+
+  ```bash
+  task pre-commit:init
+  ```
+
 - Install Ansible dependencies
-    ```bash
-    task ansible:install
-    ```
+
+  ```bash
+  task ansible:install
+  ```
 
 ### Provisioning cluster
 
-1. Double check the [packer config](./server/packer/variables.auto.pkrvars.hcl), [terraform config](./server/terraform/proxmox/variables.auto.tfvars), and [cluster settings](./cluster/base/cluster-settings.yaml), then add your secrets to the secrets files
-    ```bash
-    echo "proxmox_password = \"TERRAFORM ADMIN USER PASSWORD\"" >> server/terraform/proxmox/secrets.auto.tfvars
-    echo "proxmox_password = \"TERRAFORM ADMIN USER PASSWORD\"" >> server/packer/images/secrets.auto.pkrvars.hcl
-    echo "domain = \"your-domain.com\"" >> server/packer/images/secrets.auto.pkrvars.hcl
-    ```
+1. Double check the [packer config](./server/packer/variables.auto.pkrvars.hcl),
+   [terraform config](./server/terraform/proxmox/variables.auto.tfvars),
+   and [cluster settings](./cluster/base/cluster-settings.yaml), then add your secrets to the secrets files
+
+   ```bash
+   echo "proxmox_password = \"TERRAFORM ADMIN USER PASSWORD\"" >> server/terraform/proxmox/secrets.auto.tfvars
+   echo "proxmox_password = \"TERRAFORM ADMIN USER PASSWORD\"" >> server/packer/images/secrets.auto.pkrvars.hcl
+   echo "domain = \"your-domain.com\"" >> server/packer/images/secrets.auto.pkrvars.hcl
+   ```
+
 1. Build the template images
-    ```bash
-    task packer:all
-    ```
+
+   ```bash
+   task packer:all
+   ```
+
 1. Check the terraform plan and apply it
-    ```bash
-    task terraform:init
-    task terraform:plan
-    task terraform:apply
-    ```
+
+   ```bash
+   task terraform:init
+   task terraform:plan
+   task terraform:apply
+   ```
+
 1. Add local DNS records for the service hostnames and point them at Traefik
 
 ## Thanks
 
-This cluster has been heavily inspired by the [k8s@home](https://github.com/k8s-at-home) community. Thank you to everyone that contributes there as well as to the authors of the open source technologies which operate this cluster.
+This cluster has been heavily inspired by the [k8s@home](https://github.com/k8s-at-home) community.
+Thank you to everyone that contributes there as well as to the authors of the open source technologies which operate this cluster.

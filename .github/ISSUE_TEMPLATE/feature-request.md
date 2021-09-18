@@ -1,13 +1,12 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: ''
+title: ""
 labels: kind/enhancement
-assignees: ''
-
+assignees: ""
 ---
 
-# Details
+## Details
 
 **Describe the solution you'd like:**
 

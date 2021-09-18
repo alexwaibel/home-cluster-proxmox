@@ -1,22 +1,21 @@
 ---
-
 - hosts:
-  - caddy
+    - caddy
   become: yes
-  no_log: True
+  no_log: true
   roles:
-  - role: caddy_ansible.caddy_ansible
-    caddy_packages: ["github.com/caddy-dns/cloudflare"]
-    caddy_setcap: true
-    caddy_systemd_capabilities_enabled: true
-    caddy_systemd_capabilities: "CAP_NET_BIND_SERVICE"
-    caddy_environment_variables:
-      CF_API_TOKEN: '{{ cloudflare_token }}'
-    caddy_config: |
-      {
-        acme_dns cloudflare {env.CF_API_TOKEN}
-      }
+    - role: caddy_ansible.caddy_ansible
+      caddy_packages: ["github.com/caddy-dns/cloudflare"]
+      caddy_setcap: true
+      caddy_systemd_capabilities_enabled: true
+      caddy_systemd_capabilities: "CAP_NET_BIND_SERVICE"
+      caddy_environment_variables:
+        CF_API_TOKEN: "{{ cloudflare_token }}"
+      caddy_config: |
+        {
+          acme_dns cloudflare {env.CF_API_TOKEN}
+        }
 
-      subdomain.example.com {
-        reverse_proxy 192.168.1.123:5000
-      }
+        subdomain.example.com {
+          reverse_proxy 192.168.1.123:5000
+        }
