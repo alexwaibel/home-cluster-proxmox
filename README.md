@@ -81,7 +81,7 @@ Storage for the k3s cluster is provided by the virtualized NFS server. The [NFS 
 
 ## Installation
 
-The below steps will provision the k3s cluster as well as a reverse proxy and a fileserver.
+The below steps will provision the k3s cluster as well as a fileserver.
 
 ### Tools
 
