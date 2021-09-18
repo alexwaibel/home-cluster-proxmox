@@ -35,6 +35,6 @@ spec:
       certManager: true
       tls: true
       extaTls:
-        - "grafana.${SECRET_DOMAIN}"
+        - "wiki.${SECRET_DOMAIN}"
       secrets:
-        - "grafana-${SECRET_DOMAIN//./-}-tls"
+        - "wiki-${SECRET_DOMAIN//./-}-tls"
