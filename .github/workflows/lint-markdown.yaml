@@ -22,7 +22,7 @@ jobs:
               - added|modified: "**.md"
       - name: Lint files
         if: ${{ steps.filter.outputs.markdown == 'true' }}
-        uses: avtodev/markdown-lint@v1
+        uses: avto-dev/markdown-lint@v1.5.0
         with:
           config: '.github/lint/.markdownlint.yaml'
           args: '${{ steps.filter.outputs.markdown_files }}'
