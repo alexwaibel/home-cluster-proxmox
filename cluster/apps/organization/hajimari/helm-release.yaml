@@ -98,7 +98,7 @@ spec:
         tls:
           - hosts:
               - "homepage.${SECRET_DOMAIN}"
-            secretName: "homepage-${SECRET_DOMAIN//./-}-tls"
+            secretName: "hajimari-${SECRET_DOMAIN//./-}-tls"
     persistence:
       data:
         enabled: true
