@@ -51,14 +51,6 @@ spec:
               url: "https://domains.google.com"
             - name: Drive
               url: "https://drive.google.com"
-        - name: Design
-          links:
-            - name: Awwwards
-              url: "https://awwwards.com"
-            - name: Dribbble
-              url: "https://dribbble.com"
-            - name: Muz.li
-              url: "https://medium.muz.li/"
         - name: Dev
           links:
             - name: GitHub
@@ -88,8 +80,6 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "weather-sunset"
         hosts:
           - host: "homepage.${SECRET_DOMAIN}"
             paths:
