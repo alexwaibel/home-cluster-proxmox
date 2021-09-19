@@ -17,6 +17,9 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    image:
+      repository: homeassistant/home-assistant
+      tag: 2021.6.3
     ingress:
       main:
         enabled: true
@@ -49,6 +52,9 @@ spec:
     addons:
       codeserver:
         enabled: true
+        image:
+          repository: ghcr.io/k8s-at-home/code-server
+          tag: v3.12.0
         workingDir: "/config"
         args:
           - --auth

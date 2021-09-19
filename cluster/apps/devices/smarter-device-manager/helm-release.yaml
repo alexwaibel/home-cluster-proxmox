@@ -17,6 +17,9 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    image:
+      repository: registry.gitlab.com/arm-research/smarter/smarter-device-manager
+      tag: v1.20.7
     config:
       - devicematch: ^ttyUSB[0-9]*$
         nummaxdevices: 1
