@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: cluster-rework
+    branch: main
   url: https://github.com/alexwaibel/home-cluster
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
