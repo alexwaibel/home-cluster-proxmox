@@ -42,6 +42,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hajimari.io/enable: "true"
           hajimari.io/icon: "alert-circle"
+          hajimari.io/appName: "alert-manager"
         hosts:
           - "alert-manager.${SECRET_DOMAIN}"
         tls:
@@ -78,6 +79,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hajimari.io/enable: "true"
           hajimari.io/icon: "view-dashboard-variant"
+          hajimari.io/appName: "grafana"
         hosts:
           - "grafana.${SECRET_DOMAIN}"
         tls:
@@ -124,6 +126,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hajimari.io/enable: "true"
           hajimari.io/icon: "database-arrow-up"
+          hajimari.io/appName: "prometheus"
         hosts:
           - "prometheus.${SECRET_DOMAIN}"
         tls:
