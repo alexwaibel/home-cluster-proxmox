@@ -98,13 +98,11 @@ spec:
         tls:
           - hosts:
               - "homepage.${SECRET_DOMAIN}"
-            secretName: "hajimari-${SECRET_DOMAIN//./-}-tls"
+            secretName: "homepage-${SECRET_DOMAIN//./-}-tls"
     persistence:
       data:
         enabled: true
         existingClaim: hajimari-config
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "hajimari-settings"
     resources:
       requests:
         cpu: 100m
