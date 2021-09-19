@@ -1,0 +1,149 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: observability
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      version: 18.0.8
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    fullnameOverride: prometheus
+    alertmanager:
+      config:
+        global:
+          resolve_timeout: 5m
+        receivers:
+          - name: "null"
+        route:
+          group_by: ["alertname", "job"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 6h
+          routes:
+            - receiver: "null"
+              match:
+                alertname: Watchdog
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: "traefik"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "alert-circle"
+          hajimari.io/appName: "alert-manager"
+        hosts:
+          - "alert-manager.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - "alert-manager.${SECRET_DOMAIN}"
+            secretName: "alert-manager-${SECRET_DOMAIN//./-}-tls"
+      alertmanagerSpec:
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "nfs-client"
+              resources:
+                requests:
+                  storage: 10Gi
+    nodeExporter:
+      serviceMonitor:
+        relabelings:
+          - action: replace
+            regex: (.*)
+            replacement: $1
+            sourceLabels:
+              - __meta_kubernetes_pod_node_name
+            targetLabel: kubernetes_node
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+    grafana:
+      enabled: true
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: "traefik"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "view-dashboard-variant"
+          hajimari.io/appName: "grafana"
+        hosts:
+          - "grafana.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - "grafana.${SECRET_DOMAIN}"
+            secretName: "grafana-${SECRET_DOMAIN//./-}-tls"
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
+    kubeApiServer:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+      endpoints:
+        - 192.168.1.10
+    kubeScheduler:
+      enabled: true
+      endpoints:
+        - 192.168.1.10
+    kubeProxy:
+      enabled: true
+      endpoints:
+        - 192.168.1.10
+    kubeEtcd:
+      enabled: true
+      endpoints:
+        - 192.168.1.10
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
+    prometheus:
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: "traefik"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "database-arrow-up"
+          hajimari.io/appName: "prometheus"
+        hosts:
+          - "prometheus.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - "prometheus.${SECRET_DOMAIN}"
+            secretName: "prometheus-${SECRET_DOMAIN//./-}-tls"
+      prometheusSpec:
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        retention: 14d
+        walCompression: true
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "nfs-client"
+              resources:
+                requests:
+                  storage: 50Gi

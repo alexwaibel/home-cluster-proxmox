@@ -45,6 +45,7 @@ source "proxmox" "k3os_cloudinit" {
   template_name    = "k3os-cloudinit"
   unmount_iso      = true
   vm_name          = "provisioning-k3os-template"
+  vm_id            = 9001
 
   boot_command = [
     "<wait><tab>",

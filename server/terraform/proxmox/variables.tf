@@ -1,3 +1,13 @@
+variable "proxmox_ip" {
+  type        = string
+  description = "The IP of the proxmox server."
+}
+
+variable "proxmox_username" {
+  type        = string
+  description = "The user used to connect to proxmox."
+}
+
 variable "proxmox_node" {
   type        = string
   description = "The name of the proxmox node."
@@ -13,17 +23,6 @@ variable "ssh_public_key" {
   description = "The location of the SSH public key."
   type        = string
   default     = "~/.ssh/id_rsa.pub"
-}
-
-variable "caddy_ip_address" {
-  description = "The IP address to be used for Caddy reverse proxy."
-  type        = string
-}
-
-variable "caddy_user" {
-  description = "The user account for the caddy machine."
-  type        = string
-  default     = "root"
 }
 
 variable "fileserver_ip_address" {

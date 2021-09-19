@@ -1,32 +1,40 @@
 ---
-
 - hosts:
-  - master
+    - master
   gather_facts: no
-  no_log: True
   tasks:
-  - name: Copy over k3s config for kubectl
-    local_action: command scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null rancher@{{ ansible_host }}:/etc/rancher/k3s/k3s.yaml ~/.kube
-  - name: Rename k3s config
-    local_action: command mv ~/.kube/k3s.yaml ~/.kube/config
-  - name: Replace localhost in k3s config with node address
-    local_action:
-      module: replace
-      path: ~/.kube/config
-      regexp: '127\.0\.0\.1'
-      replace: '{{ ansible_host }}'
-  - name: Wait to allow k3s node to have a chance to come online
-    local_action:
-      module: wait_for
-      timeout: 10
-  - name: Enable k3os auto updates
-    local_action: command kubectl label node k3os-master k3os.io/upgrade=enabled
-  - name: Allow node to manage USB devices
-    local_action: command kubectl label node k3os-master smarter-device-manager=enabled
-  - name: Bootstrap cluster components
-    local_action:
-      module: command
-      cmd: flux bootstrap github --owner=alexwaibel --repository=home-cluster --private=false --personal --path=cluster
-    environment:
-      GITHUB_TOKEN:
-        "{{ github_token }}"
+    - name: Copy over k3s config for kubectl
+      local_action: command scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null rancher@{{ ansible_host }}:/etc/rancher/k3s/k3s.yaml ~/.kube
+    - name: Rename k3s config
+      local_action: command mv ~/.kube/k3s.yaml ~/.kube/config
+    - name: Replace localhost in k3s config with node address
+      local_action:
+        module: replace
+        path: ~/.kube/config
+        regexp: '127\.0\.0\.1'
+        replace: "{{ ansible_host }}"
+    - name: Set k3s config file permissions
+      local_action:
+        module: file
+        path: ~/.kube/config
+        mode: "644"
+    - name: Wait to allow k3s node to have a chance to come online
+      local_action:
+        module: wait_for
+        timeout: 10
+    - name: Enable k3os auto updates
+      local_action: command kubectl label node k3os-master k3os.io/upgrade=enabled
+    - name: Allow node to manage USB devices
+      local_action: command kubectl label node k3os-master smarter-device-manager=enabled
+    - name: Create flux-system namespace
+      local_action: shell kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
+    - name: Add GPG key secret
+      local_action: shell gpg --export-secret-keys --armor "{{ key_fp }}" |
+        kubectl create secret generic sops-gpg --namespace=flux-system --from-file=sops.asc=/dev/stdin
+    - name: Bootstrap cluster components (fails the first time due to race conditions with the Flux CRDs)
+      local_action:
+        module: command
+        cmd: kubectl apply --kustomize={{ repo_dir }}/cluster/base/flux-system
+      ignore_errors: true
+    - name: Finish bootstrapping cluster components
+      local_action: command kubectl apply --kustomize={{ repo_dir }}/cluster/base/flux-system

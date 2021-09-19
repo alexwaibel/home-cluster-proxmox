@@ -1,0 +1,17 @@
+---
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: "git rev-parse --show-toplevel"
+  CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
+  SERVER_DIR: "{{.PROJECT_DIR}}/server"
+
+includes:
+  ansible: .taskfiles/ansible.yml
+  flux: .taskfiles/flux.yml
+  format: .taskfiles/format.yml
+  lint: .taskfiles/lint.yml
+  packer: .taskfiles/packer.yml
+  pre-commit: .taskfiles/pre-commit.yml
+  terraform: .taskfiles/terraform.yml

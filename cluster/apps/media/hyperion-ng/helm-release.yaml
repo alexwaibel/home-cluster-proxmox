@@ -1,0 +1,50 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: hyperion-ng
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: hyperion-ng
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: sirfragalot/hyperion.ng
+      tag: 2.0.0-alpha.9-x86_64
+    resources:
+      limits:
+        smarter-devices/ttyUSB2: 1
+        smarter-devices/video0: 1
+        smarter-devices/video1: 1
+      requests:
+        smarter-devices/ttyUSB2: 1
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "television-ambient-light"
+        hosts:
+          - host: "hyperion.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "hyperion.${SECRET_DOMAIN}"
+            secretName: "hyperion-${SECRET_DOMAIN//./-}-tls"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: hyperion-ng-config
