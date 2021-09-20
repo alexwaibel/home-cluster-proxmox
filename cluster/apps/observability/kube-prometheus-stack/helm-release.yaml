@@ -21,14 +21,13 @@ spec:
     alertmanager:
       config:
         global:
-          global:
           slack_api_url: "${SECRET_ALERT_MANAGER_SLACK_WEBHOOK}"
           resolve_timeout: 5m
         receivers:
           - name: "null"
           - name: "slack"
             slack_configs:
-              - channel: "#prometheus"
+              - channel: "#home-server"
                 icon_url: https://avatars3.githubusercontent.com/u/3380462
                 username: "Prometheus"
                 send_resolved: true
