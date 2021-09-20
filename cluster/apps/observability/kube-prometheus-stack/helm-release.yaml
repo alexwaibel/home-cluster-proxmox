@@ -53,6 +53,10 @@ spec:
             - receiver: "null"
               match:
                 alertname: Watchdog
+            - receiver: "slack"
+              match_re:
+                severity: critical
+              continue: true
       ingress:
         enabled: true
         pathType: Prefix
