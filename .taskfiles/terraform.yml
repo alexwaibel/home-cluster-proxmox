@@ -20,13 +20,13 @@ tasks:
   destroy:fileserver:
     desc: destroy fileserver terraform resource
     cmds:
-      - "terraform -chdir=server/terraform/proxmox destroy -target=proxmox_vm_qemu.fileserver"
+      - "terraform -chdir={{.TERRAFORM_DIR}} destroy -target=proxmox_vm_qemu.fileserver"
     silent: true
 
   destroy:k3os:
     desc: destroy k3os terraform resource
     cmds:
-      - "terraform -chdir=server/terraform/proxmox destroy -target=proxmox_vm_qemu.k3os_master"
+      - "terraform -chdir={{.TERRAFORM_DIR}} destroy -target=proxmox_vm_qemu.k3os_master"
     silent: true
 
   init:
