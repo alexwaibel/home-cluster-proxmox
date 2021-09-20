@@ -23,6 +23,7 @@ spec:
     env:
     admin:
       existingSecret: grafana-password
+      passwordKey: SECRET_GRAFANA_PASSWORD
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN}"
