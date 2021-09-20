@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: smarter-device-manager
-      version: 3.2.0
+      version: 6.1.1
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -20,8 +20,8 @@ spec:
     image:
       repository: registry.gitlab.com/arm-research/smarter/smarter-device-manager
       tag: v1.20.7
-    config:
+    config: |
       - devicematch: ^ttyUSB[0-9]*$
-        nummaxdevices: 1
+        nummaxdevices: 10
       - devicematch: ^video[0-9]*$
-        nummaxdevices: 1
+        nummaxdevices: 10
