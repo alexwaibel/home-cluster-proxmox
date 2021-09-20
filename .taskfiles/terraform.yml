@@ -11,6 +11,17 @@ tasks:
       - "terraform -chdir={{.TERRAFORM_DIR}} apply"
     silent: true
 
+  apply:fileserver:
+    desc: Apply terraform changes for fileserver resource
+    cmds:
+      - "terraform -chdir={{.TERRAFORM_DIR}} apply -target=proxmox_vm_qemu.fileserver"
+
+  apply:k3os:
+    desc: Apply terraform changes for k3os resource
+    cmds:
+      - "terraform -chdir={{.TERRAFORM_DIR}} apply -target=proxmox_vm_qemu.k3os_master"
+    silent: true
+
   destroy:
     desc: destroy terraform resources
     cmds:
