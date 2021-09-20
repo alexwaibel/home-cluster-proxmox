@@ -123,4 +123,5 @@
       "semanticCommitType": "fix",
       "labels": ["renovate/helm", "dep/patch"]
     }
+  ]
 }
