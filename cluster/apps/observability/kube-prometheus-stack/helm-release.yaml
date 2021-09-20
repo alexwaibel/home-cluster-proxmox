@@ -143,6 +143,10 @@ spec:
           - hosts:
               - "prometheus.${SECRET_DOMAIN}"
             secretName: "prometheus-${SECRET_DOMAIN//./-}-tls"
+        thanosService:
+          enabled: true
+        thanosServiceMonitor:
+          enabled: true
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
