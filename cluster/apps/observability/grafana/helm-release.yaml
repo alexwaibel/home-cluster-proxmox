@@ -20,7 +20,6 @@ spec:
     image:
       repository: ghcr.io/k8s-at-home/grafana
     replicas: 1
-    env:
     admin:
       existingSecret: "grafana-password"
       userKey: "SECRET_GRAFANA_USER"
