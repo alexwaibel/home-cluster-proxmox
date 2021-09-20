@@ -89,23 +89,13 @@ spec:
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
     grafana:
-      enabled: true
-      ingress:
-        enabled: true
-        pathType: Prefix
-        ingressClassName: "traefik"
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "view-dashboard-variant"
-          hajimari.io/appName: "grafana"
-        hosts:
-          - "grafana.${SECRET_DOMAIN}"
-        tls:
-          - hosts:
-              - "grafana.${SECRET_DOMAIN}"
-            secretName: "grafana-${SECRET_DOMAIN//./-}-tls"
+      enabled: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
     kubelet:
       enabled: true
       serviceMonitor:
