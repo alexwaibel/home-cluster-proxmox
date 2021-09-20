@@ -59,6 +59,12 @@ spec:
         deleteDatasources:
           - name: Loki
             orgId: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            url: http://thanos-query:9090/
+            isDefault: true
     dashboards:
       default:
         # Ref: https://grafana.com/grafana/dashboards/7845
