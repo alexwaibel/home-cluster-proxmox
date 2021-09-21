@@ -67,6 +67,11 @@ spec:
             isDefault: true
     dashboards:
       default:
+        # Ref: https://grafana.com/grafana/dashboards/11001
+        cert-manager:
+          gnetId: 11001
+          revision: 1
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/12250
         traefik:
           gnetId: 12250
