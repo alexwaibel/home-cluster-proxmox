@@ -26,11 +26,6 @@ spec:
       data:
         enabled: true
         existingClaim: unifi-data
-    service:
-      main:
-        ports:
-          http:
-            port: 8990
     ingress:
       main:
         enabled: true
@@ -38,6 +33,7 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/service.serversscheme: "https"
           hajimari.io/enable: "true"
           hajimari.io/icon: "access-point"
         hosts:
