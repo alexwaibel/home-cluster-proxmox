@@ -15,8 +15,9 @@ spec:
         operator: In
         values:
           - helm-controller
-          - source-controller
           - kustomize-controller
+          - notification-controller
+          - source-controller
   podMetricsEndpoints:
     - port: http-prom
       relabelings:
