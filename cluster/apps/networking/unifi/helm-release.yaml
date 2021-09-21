@@ -44,9 +44,6 @@ spec:
           - hosts:
               - "unifi.${SECRET_DOMAIN}"
             secretName: "unifi-${SECRET_DOMAIN//./-}-tls"
-    service:
-      main:
-        type: LoadBalancer
     resources:
       requests:
         cpu: 15m
