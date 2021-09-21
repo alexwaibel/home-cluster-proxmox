@@ -23,9 +23,7 @@ spec:
     persistence:
       data:
         enabled: true
-        size: 10Gi
-        storageClass: nfs-client
-        accessMode: ReadWriteOnce
+        existingClaim: unifi-data
     ingress:
       main:
         enabled: true

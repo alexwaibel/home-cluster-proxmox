@@ -40,5 +40,5 @@ k3os:
   - "bind-address=0.0.0.0"
   - "--etcd-expose-metrics"
   - "true"
-  - "--kubelet-arg"
+  - "--kube-apiserver-arg"
   - "feature-gates=MixedProtocolLBService=true"
