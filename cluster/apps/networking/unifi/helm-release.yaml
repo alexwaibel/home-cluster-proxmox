@@ -47,9 +47,6 @@ spec:
     service:
       main:
         type: LoadBalancer
-        ports:
-          syslog:
-            enabled: false
     resources:
       requests:
         cpu: 15m
