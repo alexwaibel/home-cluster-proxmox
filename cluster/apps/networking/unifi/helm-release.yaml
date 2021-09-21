@@ -26,6 +26,11 @@ spec:
       data:
         enabled: true
         existingClaim: unifi-data
+    service:
+      main:
+        ports:
+          http:
+            port: 8990
     ingress:
       main:
         enabled: true
