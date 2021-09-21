@@ -22,3 +22,8 @@ spec:
           protocol: layer2
           addresses:
             - "${METALLB_LB_RANGE}"
+    prometheus:
+      podMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true
