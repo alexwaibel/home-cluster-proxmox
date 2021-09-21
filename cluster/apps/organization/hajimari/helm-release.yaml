@@ -78,7 +78,6 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "homepage.${SECRET_DOMAIN}"

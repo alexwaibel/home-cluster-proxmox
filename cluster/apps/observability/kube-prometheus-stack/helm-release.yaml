@@ -150,6 +150,7 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-staging"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-basic-auth@kubernetescrd"
           hajimari.io/enable: "true"
           hajimari.io/icon: "database-arrow-up"
           hajimari.io/appName: "prometheus"
