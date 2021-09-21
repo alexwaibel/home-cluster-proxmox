@@ -40,3 +40,5 @@ k3os:
   - "bind-address=0.0.0.0"
   - "--etcd-expose-metrics"
   - "true"
+  - "--kubelet-arg"
+  - "feature-gates=MixedProtocolLBService=true"
