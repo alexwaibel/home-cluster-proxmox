@@ -40,9 +40,12 @@ spec:
           - host: "hyperion.${SECRET_DOMAIN}"
             paths:
               - path: /api*
+                pathType: Prefix
                 backend:
-                  serviceName: hyperion-ng
-                  servicePort: 19444
+                  service:
+                    name: hyperion-ng
+                    port:
+                      number: 19444
               - path: /
                 pathType: Prefix
         tls:
