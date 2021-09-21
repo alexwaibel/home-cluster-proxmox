@@ -24,8 +24,9 @@ spec:
       tag: v6.4.54
     service:
       main:
-        annotations:
-          traefik.ingress.kubernetes.io/service.serversscheme: https
+        ports:
+          http:
+            protocol: HTTPS
     persistence:
       data:
         enabled: true
