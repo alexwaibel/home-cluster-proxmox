@@ -20,6 +20,12 @@ spec:
     image:
       repository: jacobalberty/unifi
       tag: v6.4.54
+    persistence:
+      data:
+        enabled: true
+        size: 10Gi
+        storageClass: nfs-client
+        accessMode: ReadWriteOnce
     ingress:
       main:
         enabled: true
@@ -38,7 +44,15 @@ spec:
           - hosts:
               - "unifi.${SECRET_DOMAIN}"
             secretName: "unifi-${SECRET_DOMAIN//./-}-tls"
-    persistence:
-      data:
-        enabled: true
-        existingClaim: unifi-data
+    service:
+      main:
+        type: LoadBalancer
+        ports:
+          syslog:
+            enabled: false
+    resources:
+      requests:
+        cpu: 15m
+        memory: 500Mi
+      limits:
+        memory: 750Mi
