@@ -24,6 +24,8 @@ spec:
       tag: v6.4.54
     service:
       main:
+        type: LoadBalancer
+        loadBalancerIP: ${SVC_UNIFI_ADDR}
         ports:
           http:
             protocol: HTTPS
