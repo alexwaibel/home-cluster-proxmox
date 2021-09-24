@@ -41,11 +41,8 @@ spec:
             paths:
               - path: /api*
                 pathType: Prefix
-                backend:
-                  service:
-                    name: hyperion-ng
-                    port:
-                      number: 19444
+                service:
+                  port: 19444
               - path: /
                 pathType: Prefix
         tls:
