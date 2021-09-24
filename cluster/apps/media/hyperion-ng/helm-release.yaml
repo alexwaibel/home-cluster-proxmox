@@ -39,12 +39,14 @@ spec:
         hosts:
           - host: "hyperion.${SECRET_DOMAIN}"
             paths:
-              - path: /api*
+              - path: /
+                pathType: Prefix
+          - host: "hyperion-api.${SECRET_DOMAIN}"
+            paths:
+              - path: /
                 pathType: Prefix
                 service:
                   port: 19444
-              - path: /
-                pathType: Prefix
         tls:
           - hosts:
               - "hyperion.${SECRET_DOMAIN}"
