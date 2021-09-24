@@ -50,6 +50,7 @@ spec:
         tls:
           - hosts:
               - "hyperion.${SECRET_DOMAIN}"
+              - "hyperion-api.${SECRET_DOMAIN}"
             secretName: "hyperion-${SECRET_DOMAIN//./-}-tls"
     persistence:
       config:
