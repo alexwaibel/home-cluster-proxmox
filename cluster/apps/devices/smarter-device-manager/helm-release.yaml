@@ -22,6 +22,6 @@ spec:
       tag: v1.20.7
     config: |
       - devicematch: ^ttyUSB[0-9]*$
-        nummaxdevices: 10
+        nummaxdevices: 1
       - devicematch: ^video[0-9]*$
-        nummaxdevices: 10
+        nummaxdevices: 1
