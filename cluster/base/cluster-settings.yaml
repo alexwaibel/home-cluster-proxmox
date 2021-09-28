@@ -5,6 +5,7 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
+  COREDNS_ADDR: "192.168.1.3"
   METALLB_LB_RANGE: "192.168.1.150-192.168.1.200"
   SVC_TRAEFIK_ADDR: "192.168.1.150"
   SVC_UNIFI_ADDR: "192.168.1.151"
