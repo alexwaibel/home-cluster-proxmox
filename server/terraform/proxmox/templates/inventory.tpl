@@ -1,5 +1,11 @@
 ---
 
+dns:
+  hosts:
+    coredns:
+      ansible_host: ${coredns_ip}
+      ansible_user: ${coredns_user}
+
 kubernetes:
   hosts:
     master:

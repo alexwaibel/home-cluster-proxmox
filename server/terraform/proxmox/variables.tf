@@ -46,3 +46,14 @@ variable "k3os_user" {
   type        = string
   default     = "rancher"
 }
+
+variable "coredns_ip_address" {
+  description = "The IP address to be used for coredns."
+  type        = string
+}
+
+variable "coredns_user" {
+  description = "The user for the k3os machine."
+  type        = string
+  default     = "root"
+}

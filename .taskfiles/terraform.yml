@@ -11,6 +11,11 @@ tasks:
       - "terraform -chdir={{.TERRAFORM_DIR}} apply"
     silent: true
 
+  apply:coredns:
+    desc: Apply terraform changes for coredns resource
+    cmds:
+      - "terraform -chdir={{.TERRAFORM_DIR}} apply -target=proxmox_lxc.coredns"
+
   apply:fileserver:
     desc: Apply terraform changes for fileserver resource
     cmds:
@@ -26,6 +31,12 @@ tasks:
     desc: destroy terraform resources
     cmds:
       - "terraform -chdir={{.TERRAFORM_DIR}} destroy"
+    silent: true
+
+  destroy:coredns:
+    desc: destroy coredns terraform resource
+    cmds:
+      - "terraform -chdir={{.TERRAFORM_DIR}} destroy -target=proxmox_lxc.coredns"
     silent: true
 
   destroy:fileserver:

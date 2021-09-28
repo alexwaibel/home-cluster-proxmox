@@ -10,6 +10,7 @@
       user:
         name: debian
         password_lock: true
+
     - name: Set share directory permissions
       file:
         path: /mnt/share

@@ -1,0 +1,83 @@
+---
+- hosts:
+    - coredns
+  become: no
+  gather_facts: yes
+  roles:
+    - role: fubarhouse.golang
+      go_version: 1.17.1
+      GOPATH: /var/lib/coredns/go
+      GOROOT: /usr/local/go
+      GOPROXY: https://proxy.golang.org
+
+  tasks:
+    - name: Create coredns directory if it does not exist
+      ansible.builtin.file:
+        path: /etc/coredns
+        state: directory
+        mode: '0755'
+
+    - name: Copy kubeconfig to DNS server
+      ansible.builtin.copy:
+        src: /tmp/kubeconfig-homedns
+        dest: /etc/coredns/kubeconfig
+        mode: 0755
+
+    - name: Install git
+      apt:
+        name: git
+        state: present
+
+    - name: Add the coredns user
+      ansible.builtin.user:
+        name: coredns
+        home: /var/lib/coredns
+
+    - name: Clone k8s gateway repo
+      ansible.builtin.git:
+        repo: https://github.com/ori-edge/k8s_gateway.git
+        dest: /var/lib/coredns/k8s_gateway
+        depth: 1
+
+    - name: Build coredns with k8s gateway plugin
+      shell: /usr/local/go/bin/go build cmd/coredns.go
+      args:
+        chdir: /var/lib/coredns/k8s_gateway
+
+    - name: Move coredns binary to /user/bin
+      command: mv /var/lib/coredns/k8s_gateway/coredns /usr/bin
+
+    - name: Create coredns systemd unit file
+      ansible.builtin.template:
+        src: ../../templates/coredns/coredns.service.j2
+        dest: /etc/systemd/system/coredns.service
+        mode: 0755
+
+    - name: Create CoreDNS Corefile
+      ansible.builtin.template:
+        src: ../../templates/coredns/Corefile.j2
+        dest: /etc/coredns/Corefile
+        mode: 0755
+
+    - name: Create CoreDNS sysusers config
+      ansible.builtin.template:
+        src: ../../templates/coredns/coredns-sysusers.conf.j2
+        dest: /usr/lib/sysusers.d/doredns-sysusers.conf
+        mode: 0755
+
+    - name: Create CoreDNS tmpfiles config
+      ansible.builtin.template:
+        src: ../../templates/coredns/coredns-tmpfiles.conf.j2
+        dest: /usr/lib/tmpfiles.d/coredns-tmpfiles.conf
+        mode: 0755
+
+    - name: Enable coredns service
+      ansible.builtin.service:
+        name: coredns
+        enabled: yes
+        daemon_reload: yes
+
+    - name: Start coredns service
+      ansible.builtin.service:
+        name: coredns
+        state: started

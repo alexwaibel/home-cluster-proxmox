@@ -1,0 +1,58 @@
+---
+- hosts:
+    - master
+  gather_facts: no
+  become: no
+  tasks:
+    - name: Fetch service account for home-dns
+      local_action:
+        module: set_fact
+        DNSServiceAccountRaw: "{{ lookup('kubernetes.core.k8s', namespace='kube-system', kind='ServiceAccount', resource_name='home-dns') }}"
+
+    - name: Extract service account token from service account
+      local_action:
+        module: set_fact
+        DNSServiceAccountToken: "{{ DNSServiceAccountRaw | json_query('secrets[*].name | [0]') }}"
+
+    - name: Fetch CA
+      local_action:
+        module: set_fact
+        DNSCertificateAuthorityRaw: "{{ lookup('kubernetes.core.k8s', namespace='kube-system', kind='Secret', resource_name=DNSServiceAccountToken) }}"
+
+    - name: Extract CA Cert from CA
+      local_action:
+        module: set_fact
+        DNSCertificateAuthority: '{{ DNSCertificateAuthorityRaw | json_query(''data."ca.crt"'') }}'
+
+    - name: Extract CA Token from CA
+      local_action:
+        module: set_fact
+        DNSCertificateAuthorityToken: "{{ DNSCertificateAuthorityRaw | json_query('data.token') | b64decode }}"
+
+    - name: Create kubeconfig
+      local_action:
+        module: copy
+        dest: "/tmp/kubeconfig-homedns"
+        content: |
+          ---
+          apiVersion: v1
+          kind: Config
+          clusters:
+          - name: home
+            cluster:
+              certificate-authority-data: {{ DNSCertificateAuthority }}
+              server: https://{{ master_node_ip_address }}:6443
+          contexts:
+          - name: home
+            context:
+              cluster: home
+              user: home-dns
+          users:
+          - name: home-dns
+            user:
+              token: {{ DNSCertificateAuthorityToken }}
+          current-context: home
+        mode: 0755
+
+- name: Install coredns service
+  import_playbook: coredns-service.yaml
