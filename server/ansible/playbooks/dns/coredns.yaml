@@ -1,7 +1,6 @@
 ---
 - hosts:
     - localhost
-  become: no
   tasks:
     - name: Fetch service account for home-dns
       kubernetes.core.k8s:

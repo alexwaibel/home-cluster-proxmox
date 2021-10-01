@@ -30,11 +30,39 @@ resource "proxmox_lxc" "coredns" {
   }
 
   network {
-    name   = "eth0"
+    name   = "eth0.1"
     bridge = "vmbr0"
     ip     = "${var.coredns_ip_address}/24"
     ip6    = "auto"
     gw     = "192.168.1.1"
+    tag    = 1
+  }
+
+  network {
+    name   = "eth0.2"
+    bridge = "vmbr0"
+    ip     = "192.168.2.3/24"
+    ip6    = "auto"
+    gw     = "192.168.2.1"
+    tag    = 2
+  }
+
+  network {
+    name   = "eth0.3"
+    bridge = "vmbr0"
+    ip     = "192.168.3.3/24"
+    ip6    = "auto"
+    gw     = "192.168.3.1"
+    tag    = 3
+  }
+
+  network {
+    name   = "eth0.4"
+    bridge = "vmbr0"
+    ip     = "192.168.4.3/24"
+    ip6    = "auto"
+    gw     = "192.168.4.1"
+    tag    = 4
   }
 
   provisioner "remote-exec" {

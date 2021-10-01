@@ -1,7 +1,6 @@
 ---
 - hosts:
     - coredns
-  become: no
   gather_facts: yes
   roles:
     - role: fubarhouse.golang
@@ -11,27 +10,27 @@
       GOPROXY: https://proxy.golang.org
 
   tasks:
-    - name: Create coredns directory if it does not exist
+    - name: Add the coredns user
+      ansible.builtin.user:
+        name: coredns
+        home: /var/lib/coredns
+
+    - name: Install git
+      ansible.builtin.apt:
+        name: git
+        state: present
+
+    - name: Ensure coredns directory exists
       ansible.builtin.file:
         path: /etc/coredns
         state: directory
-        mode: '0755'
+        mode: 0755
 
     - name: Copy kubeconfig to DNS server
       ansible.builtin.copy:
         src: /tmp/kubeconfig-homedns
         dest: /etc/coredns/kubeconfig
         mode: 0755
-
-    - name: Install git
-      apt:
-        name: git
-        state: present
-
-    - name: Add the coredns user
-      ansible.builtin.user:
-        name: coredns
-        home: /var/lib/coredns
 
     - name: Clone k8s gateway repo
       ansible.builtin.git:
@@ -40,12 +39,12 @@
         depth: 1
 
     - name: Build coredns with k8s gateway plugin
-      shell: /usr/local/go/bin/go build cmd/coredns.go
+      ansible.builtin.shell: /usr/local/go/bin/go build cmd/coredns.go
       args:
         chdir: /var/lib/coredns/k8s_gateway
 
     - name: Move coredns binary to /user/bin
-      command: mv /var/lib/coredns/k8s_gateway/coredns /usr/bin
+      ansible.builtin.command: mv /var/lib/coredns/k8s_gateway/coredns /usr/bin
 
     - name: Create coredns systemd unit file
       ansible.builtin.template:
