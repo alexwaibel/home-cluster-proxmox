@@ -15,6 +15,7 @@ on a single [Proxmox](https://pve.proxmox.com/) host. I'm currently running the 
 
 ### Virtual Hosts
 
+- DNS server (LXC)
 - k3s (VM)
 - NFS fileserver (VM)
 
@@ -31,7 +32,7 @@ on a single [Proxmox](https://pve.proxmox.com/) host. I'm currently running the 
 
 1. This cluster uses a custom Traefik ingress controller to configure hostnames using a subdomain of my registered tld.
 1. Traefik uses cert-manager with LetsEncrypt and Cloudflare ACME DNS solver to provide certificates for all my services without exposing any ports on my router to the public internet.
-1. I then add each ingress hostname as a local record in my DNS server (Pi-hole).
+1. The coreDNS server provides DNS for my home network. Using the k8s_gateway plugin it can query the cluster's ingresses.
 
 #### Repository Structure
 
@@ -84,7 +85,7 @@ Storage for the k3s cluster is provided by the virtualized NFS server. The [NFS 
 
 ## Installation
 
-The below steps will provision the k3s cluster as well as a fileserver.
+The below steps will provision the k3s cluster as well as a fileserver and a DNS server.
 
 ### Tools
 
@@ -161,7 +162,7 @@ These tools should be installed on the machine you'll be managing the cluster fr
    task terraform:apply
    ```
 
-1. Add local DNS records for the service hostnames and point them at Traefik
+1. Set your DHCP server to use the new DNS server
 
 ## Thanks
 
