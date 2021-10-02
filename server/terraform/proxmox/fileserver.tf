@@ -1,5 +1,6 @@
 resource "proxmox_vm_qemu" "fileserver" {
   name        = "fileserver"
+  desc        = "Debian nfs share"
   target_node = var.proxmox_node
   vmid        = 801
 
@@ -10,6 +11,22 @@ resource "proxmox_vm_qemu" "fileserver" {
   agent     = 1
   ipconfig0 = "ip=${var.fileserver_ip_address}/24,gw=192.168.1.1"
   sshkeys   = file(var.ssh_public_key)
+
+  disk {
+    cache   = "none"
+    format  = "raw"
+    size    = "200G"
+    storage = "local-zfs"
+    type    = "scsi"
+  }
+
+  network {
+    bridge    = "vmbr0"
+    firewall  = false
+    link_down = false
+    macaddr   = "C6:3D:90:63:41:A6"
+    model     = "virtio"
+  }
 
   provisioner "remote-exec" {
     inline = ["echo provisioned"]

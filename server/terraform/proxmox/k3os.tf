@@ -6,6 +6,7 @@ variable "key_fp" {
 
 resource "proxmox_vm_qemu" "k3os_master" {
   name        = "k3os-master"
+  desc        = "Master k3s node running on k3os"
   target_node = var.proxmox_node
   vmid        = 802
 
@@ -15,6 +16,23 @@ resource "proxmox_vm_qemu" "k3os_master" {
 
   cores  = 2
   memory = 8192
+
+  disk {
+    cache   = "none"
+    format  = "raw"
+    size    = "50G"
+    storage = "local-zfs"
+    type    = "scsi"
+  }
+
+  network {
+    bridge    = "vmbr0"
+    firewall  = false
+    link_down = false
+    macaddr   = "36:BA:2C:EC:A7:58"
+    model     = "virtio"
+  }
+
 
   provisioner "remote-exec" {
     inline = [

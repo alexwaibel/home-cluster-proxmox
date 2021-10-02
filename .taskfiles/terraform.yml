@@ -51,6 +51,22 @@ tasks:
       - "terraform -chdir={{.TERRAFORM_DIR}} destroy -target=proxmox_vm_qemu.k3os_master"
     silent: true
 
+  replace:coredns:
+    desc: Replace coredns resource
+    cmds:
+      - "terraform -chdir={{.TERRAFORM_DIR}} apply -replace=proxmox_lxc.coredns"
+
+  replace:fileserver:
+    desc: Replace fileserver resource
+    cmds:
+      - "terraform -chdir={{.TERRAFORM_DIR}} apply -replace=proxmox_vm_qemu.fileserver"
+
+  replace:k3os:
+    desc: Replace k3os resource
+    cmds:
+      - "terraform -chdir={{.TERRAFORM_DIR}} apply -replace=proxmox_vm_qemu.k3os_master"
+    silent: true
+
   init:
     desc: Initialize terraform
     cmds:
