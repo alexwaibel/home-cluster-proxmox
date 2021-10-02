@@ -30,10 +30,6 @@ spec:
           - observability
           - organization
       name: "Alex"
-      customApps:
-        - name: Pi-hole
-          url: "http://pihole.${SECRET_DOMAIN}/admin"
-          icon: pi-hole
       groups:
         - name: Communicate
           links:
