@@ -20,6 +20,7 @@ resource "proxmox_lxc" "coredns" {
 
   ssh_public_keys = file(var.ssh_public_key)
   password        = random_password.password.result
+  nameserver      = "1.1.1.1"
 
   cores  = 1
   memory = 512
