@@ -35,6 +35,7 @@ spec:
         tls:
           - hosts:
               - "zwavejs2mqtt.${SECRET_DOMAIN}"
+            secretName: "zwavejs2mqtt-${SECRET_DOMAIN//./-}-tls"
     persistence:
       config:
         enabled: true
