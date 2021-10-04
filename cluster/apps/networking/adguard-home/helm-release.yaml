@@ -26,11 +26,11 @@ spec:
         type: LoadBalancer
         loadBalancerIP: ${SVC_ADGUARD_ADDR}
         ports:
-        dns-tcp:
-          enabled: true
-          port: 53
-          protocol: TCP
-          targetPort: 53
+          dns-tcp:
+            enabled: true
+            port: 53
+            protocol: TCP
+            targetPort: 53
       dns-udp:
         enabled: true
         type: LoadBalancer
