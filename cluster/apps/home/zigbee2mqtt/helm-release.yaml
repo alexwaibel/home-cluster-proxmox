@@ -1,0 +1,68 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: zigbee2mqtt
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: zigbee2mqtt
+      version: 9.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/koenkk/zigbee2mqtt
+      tag: 1.21.2
+    env:
+      ZIGBEE2MQTT_DATA: /data
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hosts:
+          - host: "zigbee2mqtt.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "zigbee2mqtt.${SECRET_DOMAIN}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: zigbee2mqtt-config
+        mountPath: "/data"
+    config:
+      homeassistant: true
+      device_options:
+        retain: true
+      permit_join: false
+      mqtt:
+        base_topic: zigbee2mqtt
+        server: "mqtt://emqx"
+        user: "${SECRET_MQTT_USERNAME}"
+        password: "${SECRET_MQTT_PASSWORD}"
+      advanced:
+        log_output:
+          - console
+        network_key:
+          - GENERATE
+      frontend:
+        port: 8080
+      experimental:
+        new_api: true
+    resources:
+      limits:
+        smarter-devices/ttyUSB1: 1
+      requests:
+        smarter-devices/ttyUSB1: 1
