@@ -41,3 +41,19 @@ spec:
       size: 100Mi
       storageClass: "nfs-client"
       accessMode: ReadWriteOnce
+    ingress:
+      dashboard:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "rss"
+        path: /
+        hosts:
+          - "emqx.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - "emqx.${SECRET_DOMAIN}"
+            secretName: "emqx-${SECRET_DOMAIN//./-}-tls"
