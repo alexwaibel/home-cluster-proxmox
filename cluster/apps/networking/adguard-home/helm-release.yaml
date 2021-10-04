@@ -22,21 +22,20 @@ spec:
       tag: v0.106.3
     service:
       dns-tcp:
+        enabled: false
+      dns-udp:
+        enabled: false
+      dns:
         enabled: true
         type: LoadBalancer
         loadBalancerIP: ${SVC_ADGUARD_ADDR}
         ports:
-          dns-tcp:
+          tcp:
             enabled: true
             port: 53
             protocol: TCP
             targetPort: 53
-      dns-udp:
-        enabled: true
-        type: LoadBalancer
-        loadBalancerIP: ${SVC_ADGUARD_ADDR}
-        ports:
-          dns-udp:
+          udp:
             enabled: true
             port: 53
             protocol: UDP
