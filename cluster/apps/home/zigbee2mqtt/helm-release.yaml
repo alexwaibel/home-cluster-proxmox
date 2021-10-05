@@ -63,8 +63,3 @@ spec:
         port: 8080
       experimental:
         new_api: true
-    resources:
-      limits:
-        smarter-devices/ttyUSB1: 1
-      requests:
-        smarter-devices/ttyUSB1: 1
