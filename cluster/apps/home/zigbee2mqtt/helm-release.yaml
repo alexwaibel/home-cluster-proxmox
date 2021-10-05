@@ -56,8 +56,7 @@ spec:
       advanced:
         log_output:
           - console
-        network_key:
-          - GENERATE
+        network_key: GENERATE
       frontend:
         port: 8080
       experimental:
