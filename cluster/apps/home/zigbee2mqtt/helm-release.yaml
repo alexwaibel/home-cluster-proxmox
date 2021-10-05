@@ -43,6 +43,11 @@ spec:
         enabled: true
         existingClaim: zigbee2mqtt-config
         mountPath: "/data"
+    resources:
+      limits:
+        smarter-devices/ttyUSB1: 1
+      requests:
+        smarter-devices/ttyUSB1: 1
     config:
       homeassistant: true
       device_options:
@@ -54,7 +59,7 @@ spec:
         user: "${SECRET_MQTT_USERNAME}"
         password: "${SECRET_MQTT_PASSWORD}"
       serial:
-        port: null
+        port: "/dev/ttyUSB1"
       advanced:
         log_output:
           - console

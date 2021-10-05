@@ -42,11 +42,6 @@ spec:
       config:
         enabled: true
         existingClaim: home-assistant-config
-    resources:
-      limits:
-        smarter-devices/ttyUSB1: 1
-      requests:
-        smarter-devices/ttyUSB1: 1
     addons:
       codeserver:
         enabled: true
