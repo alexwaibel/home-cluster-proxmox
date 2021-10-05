@@ -60,6 +60,7 @@ spec:
         password: "${SECRET_MQTT_PASSWORD}"
       serial:
         port: "/dev/ttyUSB1"
+        adapter: ezsp
       advanced:
         log_output:
           - console
