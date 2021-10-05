@@ -62,9 +62,11 @@ spec:
         port: "/dev/ttyUSB1"
         adapter: ezsp
       advanced:
+        log_level: debug
         log_output:
           - console
         network_key: GENERATE
+        baudrate: 57600
       frontend:
         port: 8080
       experimental:
