@@ -6,8 +6,8 @@ metadata:
     namespace: home
 stringData:
     HASS_ELEVATION: ENC[AES256_GCM,data:Hww=,iv:enI/F3XEXu1RDGIOj4MGrRerGNQ+CZxbWP8DgUf7KDo=,tag:bp8XRXT50fR1+tWc7BmTLQ==,type:str]
-    HASS_LATITUDE: ENC[AES256_GCM,data:6Iu5v1wYAf0WKXw=,iv:JTlydMSDmXDfGzYuppSn0fhxdQrz064f/HNYK9KMcBk=,tag:L97Fss+u/9pdnDOM1XAFuw==,type:str]
-    HASS_LONGITUDE: ENC[AES256_GCM,data:4+1ntmNfNSu7,iv:iz3m+y+j1SuYaBepA6+BEQU+5YkKcKCo9McvNEDfPUw=,tag:hHZB8AhUdIR+d5FGY6aYgg==,type:str]
+    HASS_LATITUDE: ENC[AES256_GCM,data:iUyqjlIf8Pl6,iv:kCe7FnsqsLQ3vGjW0kHvbVjgFHxZD/ic801ozYKkx9Y=,tag:Oi5izpBCFlGA7/LBoWwnug==,type:str]
+    HASS_LONGITUDE: ENC[AES256_GCM,data:FUuQjdETUddjpsI=,iv:hGZdpA2V1SHALk7waaW3T/qeV0JldXhkPRJ93zI8DYk=,tag:BvPfVlG8SgXxy+7G0h8UaQ==,type:str]
     HASS_MQTT_PASSWORD: ENC[AES256_GCM,data:2g+f8Npn+bgxJ+2vkkuHqVaeMNFPuFIzOVzgpqCFq0w=,iv:wo5T0oPU+ZRsZoUzi9bcuvP3yUw2Q1f/GyzCInCpYpc=,tag:4k+PQZEmHjtNsdZ0TqsZ7Q==,type:str]
     HASS_MQTT_USERNAME: ENC[AES256_GCM,data:No2qOA6kXHxpsT2AEYM=,iv:xW8Bn2zHCryAlCEyDvngwN3/fH1ALdGJ6yyROrMKlNc=,tag:Oh1ne1QGhnKQGaGdIc54Lw==,type:str]
     HASS_SPOTIFY_CLIENT_ID: ENC[AES256_GCM,data:hTrt1Jg6NyMj6CrnXNQHKE9QQiWRl0WXiUv2azTaH6o=,iv:Kc4xirsp4KCdl+rEkpGYh0tNp94s+/ILnkHk6ayrzD0=,tag:qJaWQn+0XvOB/Hkhgr064g==,type:str]
@@ -20,8 +20,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-10-06T06:26:12Z"
-    mac: ENC[AES256_GCM,data:/gIXCMOYIy3OZLzrudm5HE4XkKDu/g25kOmwDR0EbC8hm1UgymgEWbOU0LPgQRsVeNDhHsK6G0y7/yPj17/YBJw6JSqkZ5rL2d+XtJ3pZ6mgTQi3eBKZaK7ATwNbPgLYyVdYFKyMreSGr99/4rykHFf/oxgGA9/VtWn3B6y92QU=,iv:EXt1kES7TE4eT/bp39v/TgG7jmKykPaRACgGqrKAOvs=,tag:jme2V10GVGC4JX3/Kbh8Vg==,type:str]
+    lastmodified: "2021-10-06T07:46:18Z"
+    mac: ENC[AES256_GCM,data:U2LEoaMRM4ETndqFKSHlbz7PgWbioWOvHVHClIe468+C9eS3tezK23ad4IBYAJZv/t+b0GRat0wpAH/YPzKi7I0zru/fEV1YkmGpN6FlmqPkWqfMxdzUrgy35iLBIFqVvnUvRE1exg+xC9wqwWP+RwEuVNiJUvtvZT0s3sZIfqY=,iv:+O9OAoiit9S8VLhiqUpCijfickHgTwMMmtFIt8oGOpU=,tag:jqjJwN0WHFWHpWJ0uW2L1w==,type:str]
     pgp:
         - created_at: "2021-10-06T04:39:03Z"
           enc: |
