@@ -14,14 +14,17 @@ stringData:
     HASS_SPOTIFY_CLIENT_SECRET: ENC[AES256_GCM,data:yDUDOmUVkFp6+MlaxGsWM18mKxz4hw9vfJSHue3BFpY=,iv:zOgQvahdyjPxvPBmOe248Po57/EiIRngyigflrtWz90=,tag:NGHHugjMXroU6WvenBRC0Q==,type:str]
     HASS_TRUSTED_PROXIES_1: ENC[AES256_GCM,data:8Lm7FnG0bnqVjN7A,iv:y+wNqYJh9vKeDsBc37zqwPfR9cTE71bR9VyeYceYI7s=,tag:u7KkZFdvl5Bv5TmczgUUBQ==,type:str]
     HASS_TRUSTED_PROXIES_2: ENC[AES256_GCM,data:HAJmmfcMqvYn/yzWlyk=,iv:daIzXm9kMr+CZrk0zQpoZTfIYosIKH5jUvn504qzZkk=,tag:PRIkP7qa91s74hfx1VNzkg==,type:str]
+    ROBOROCK_PASSWORD: ENC[AES256_GCM,data:rl95LuWJUUO5PCwS,iv:vwAyzfASB3hlh9qQngvBVu0dU1jSBajgvwWUrmWVw3w=,tag:R7XQeI5JVcomfQ5m2dBkoA==,type:str]
+    ROBOROCK_TOKEN: ENC[AES256_GCM,data:sjJgFCEIwPqQEWIBJK12ZumjcqTI1RMjDnPgCmM+rNk=,iv:T6+TQvZUiiqOtEiDoTRiBdLAFoiXgvx5cyzsXp7zXoo=,tag:4rCDka1NIQQ15ep1ZG18LQ==,type:str]
+    ROBOROCK_USERNAME: ENC[AES256_GCM,data:qtGT8SnC8i24p0yvNFc=,iv:M8HXDD2R2/3Jj4teAcO59Ba7MLA02TOABHVyDB4p+EA=,tag:v9kDdSORJsvIEFptH1N92Q==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-10-06T07:46:18Z"
-    mac: ENC[AES256_GCM,data:U2LEoaMRM4ETndqFKSHlbz7PgWbioWOvHVHClIe468+C9eS3tezK23ad4IBYAJZv/t+b0GRat0wpAH/YPzKi7I0zru/fEV1YkmGpN6FlmqPkWqfMxdzUrgy35iLBIFqVvnUvRE1exg+xC9wqwWP+RwEuVNiJUvtvZT0s3sZIfqY=,iv:+O9OAoiit9S8VLhiqUpCijfickHgTwMMmtFIt8oGOpU=,tag:jqjJwN0WHFWHpWJ0uW2L1w==,type:str]
+    lastmodified: "2021-10-12T09:07:47Z"
+    mac: ENC[AES256_GCM,data:brXOTrFxSFC9/t4XlR8qase30U2Tj0KSyHQYxzXO5lzfVbfuojyP4TuaQxwdlj+vmKNbYD5vKLyM1YXrYZtvQDJN4npUV/ewMZKG/d/aVujtiWgfpDk5EKinz/IUHzm8btsYSldc+/eIzaRcuApD5lQV7G0Db4ULvBu5Pz9mahk=,iv:J5g87UwvHZM7CmeHjVyoXd1sx4kEe7W/hbnCH4Flewc=,tag:DYuWYyW1htAxplpkRJgbtQ==,type:str]
     pgp:
         - created_at: "2021-10-06T04:39:03Z"
           enc: |

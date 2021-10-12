@@ -22,6 +22,7 @@ spec:
       tag: 2021.10.2
     env:
       HASS_URL: "https://hass.${SECRET_DOMAIN}"
+      ROBOROCK_ADDR: 192.168.3.11
     envFrom:
       - secretRef:
           name: home-assistant
