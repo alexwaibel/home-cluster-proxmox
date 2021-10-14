@@ -16,7 +16,7 @@ spec:
       interval: 5m
   values:
     podSecurityContext:
-      runAsUser: 1000
+      runAsUser: 0
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
