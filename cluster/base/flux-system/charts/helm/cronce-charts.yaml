@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
-  url: hhttps://charts.cronce.io/
+  url: https://charts.cronce.io/
   timeout: 3m
