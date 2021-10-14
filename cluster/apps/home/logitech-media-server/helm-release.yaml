@@ -8,37 +8,47 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: logitech-media-server
-      version: 0.1.0
+      chart: /charts/kah-common/
       sourceRef:
-        kind: HelmRepository
-        name: cronce-charts
+        kind: GitRepository
+        name: flux-system
         namespace: flux-system
       interval: 5m
   values:
     image:
       repository: doliana/logitech-media-server
-      tag: 2021_10_09-8.2.0
+      tag: "2021_10_09-8.2.0"
+    nameOverride: logitech-media-server
+    service:
+      main:
+        ports:
+          http:
+            port: 9000
     ingress:
-      enabled: true
-      annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "playlist-music"
-      hosts: "lms.${SECRET_DOMAIN}"
-      path: /
-      tls:
-        - hosts:
-            - "lms.${SECRET_DOMAIN}"
-          secretName: "lms-${SECRET_DOMAIN//./-}-tls"
+      main:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "playlist-music"
+        hosts:
+          - host: "lms.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "lms.${SECRET_DOMAIN}"
+            secretName: "lms-${SECRET_DOMAIN//./-}-tls"
     persistence:
       config:
         enabled: true
         existingClaim: logitech-media-server-config
+        mountPath: /srv/squeezebox
     resources:
       requests:
-        cpu: 30m
+        cpu: 100m
         memory: 500Mi
       limits:
         memory: 750Mi
