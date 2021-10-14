@@ -15,15 +15,11 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    initContainers:
-      update-volume-permission:
-        image: busybox
-        command: ["sh", "-c", "chown -R 568:568 /srv/squeezebox"]
-        volumeMounts:
-        - name: config
-          mountPath: /srv/squeezebox
-        securityContext:
-          runAsUser: 0
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: doliana/logitech-media-server
       tag: "2021_10_09-8.2.0"
