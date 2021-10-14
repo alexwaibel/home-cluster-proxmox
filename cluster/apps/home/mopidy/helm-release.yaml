@@ -1,0 +1,59 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mopidy
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: /charts/kah-common/
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 5m
+  values:
+    podSecurityContext:
+      runAsUser: 84044
+      runAsGroup: 84044
+      fsGroup: 84044
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: wernight/mopidy
+      tag: latest
+    nameOverride: mopidy
+    service:
+      main:
+        ports:
+          http:
+            port: 6680
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "playlist-music"
+        hosts:
+        - host: "mopidy.${SECRET_DOMAIN}"
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - "mopidy.${SECRET_DOMAIN}"
+          secretName: "mopidy-${SECRET_DOMAIN//./-}-tls"
+    persistence:
+      data:
+        enabled: true
+        existingClaim: mopidy-data
+        mountPath: /var/lib/mopidy/local
+    resources:
+      requests:
+        cpu: 100m
+        memory: 500Mi
+      limits:
+        memory: 750Mi
