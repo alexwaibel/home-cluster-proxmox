@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - emqx
   - home-assistant
+  - logitech-media-server
   - zigbee2mqtt
   - zwavejs2mqtt
