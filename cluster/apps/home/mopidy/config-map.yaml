@@ -17,6 +17,10 @@ data:
     hostname = 0.0.0.0
     default_app = iris
 
+    [iris]
+    country = US
+    locale = en_US
+
     [spotify]
     username = ${SECRET_SPOTIFY_USERNAME}
     password = ${SECRET_SPOTIFY_PASSWORD}
@@ -25,6 +29,5 @@ data:
     bitrate = 320
     toplist_countries = US
 
-    [iris]
-    country = US
-    locale = en_US
+    [soundcloud]
+    auth_token = ${SECRET_SOUNDCLOUD_TOKEN}
