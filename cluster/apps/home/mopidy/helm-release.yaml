@@ -54,7 +54,7 @@ spec:
             pathType: Prefix
             service:
               name: mopidy-icecast
-              port: icecast
+              port: 8000
         tls:
         - hosts:
           - "mopidy.${SECRET_DOMAIN}"
