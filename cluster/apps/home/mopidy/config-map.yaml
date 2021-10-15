@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mopidy-config
+  namespace: home
+data:
+  mopidy.conf: |
+    # For information about configuration values that can be set in this file see:
+    #
+    #   https://docs.mopidy.com/en/latest/config/
+    #
+    # Run `sudo mopidyctl config` to see the current effective config, based on
+    # both defaults and this configuration file.
+
+    [http]
+    hostname = 0.0.0.0
+    default_app = iris
+
+    [spotify]
+    client_id = ${SECRET_MOPIDY_SPOTIFY_CLIENT_ID}
+    client_secret = ${SECRET_MOPIDY_SPOTIFY_CLIENT_SECRET}
+    bitrate = 320
+    toplist_countries = US
+
+    [iris]
+    country = US
+    locale = en_US
