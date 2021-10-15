@@ -46,13 +46,15 @@ spec:
         - host: "mopidy.${SECRET_DOMAIN}"
           paths:
           - path: /
-            backend:
-              serviceName: mopidy
-              servicePort: http
+            pathType: Prefix
+            service:
+              name: mopidy
+              port: http
           - path: /listen
-            backend:
-              serviceName: mopidy-icecast
-              servicePort: icecast
+            pathType: Prefix
+            service:
+              name: mopidy-icecast
+              port: icecast
         tls:
         - hosts:
           - "mopidy.${SECRET_DOMAIN}"
