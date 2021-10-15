@@ -18,6 +18,8 @@ data:
     default_app = iris
 
     [spotify]
+    username = ${SECRET_SPOTIFY_USERNAME}
+    password = ${SECRET_SPOTIFY_PASSWORD}
     client_id = ${SECRET_MOPIDY_SPOTIFY_CLIENT_ID}
     client_secret = ${SECRET_MOPIDY_SPOTIFY_CLIENT_SECRET}
     bitrate = 320
