@@ -46,10 +46,6 @@ spec:
         - host: "mopidy.${SECRET_DOMAIN}"
           paths:
           - path: /
-            pathType: Prefix
-            service:
-              name: mopidy
-              port: http
           - path: /listen
             pathType: Prefix
             service:
