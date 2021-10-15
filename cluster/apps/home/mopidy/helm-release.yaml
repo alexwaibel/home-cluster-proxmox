@@ -36,18 +36,30 @@ spec:
         - host: "mopidy.${SECRET_DOMAIN}"
           paths:
           - path: /
-            pathType: Prefix
+            backend:
+              serviceName: mopidy
+              servicePort: mopidy
+          - path: /listen
+            backend:
+              serviceName: icecast
+              servicePort: icecast
         tls:
         - hosts:
           - "mopidy.${SECRET_DOMAIN}"
           secretName: "mopidy-${SECRET_DOMAIN//./-}-tls"
     persistence:
-      config:
+      mopidy-config:
         enabled: true
         type: custom
         volumeSpec:
           configMap:
             name: mopidy-config
+      icecast-config:
+        enabled: true
+        type: custom
+        volumeSpec:
+          configMap:
+            name: icecast-config
       data:
         enabled: true
         existingClaim: mopidy-data
@@ -58,3 +70,18 @@ spec:
         memory: 500Mi
       limits:
         memory: 750Mi
+    additionalContainers:
+      icecast:
+        name: icecast
+        image: vimagick/icecast:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 8000
+        volumeMounts:
+        - name: icecast-config
+          mountPath: /etc/icecast.xml
+          subPath: icecast.xml
+        - name: icecast-config
+          mountPath: /usr/share/icecast/web/silence.mp3
+          subPath: silence.mp3
