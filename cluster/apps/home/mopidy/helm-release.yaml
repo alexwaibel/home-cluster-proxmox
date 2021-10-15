@@ -42,6 +42,12 @@ spec:
           - "mopidy.${SECRET_DOMAIN}"
           secretName: "mopidy-${SECRET_DOMAIN//./-}-tls"
     persistence:
+      config:
+        enabled: true
+        type: custom
+        volumeSpec:
+          configMap:
+            name: mopidy-config
       data:
         enabled: true
         existingClaim: mopidy-data
