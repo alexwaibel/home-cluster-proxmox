@@ -15,11 +15,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    podSecurityContext:
-      runAsUser: 0
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: doliana/logitech-media-server
       tag: "2021_10_09-8.2.0"
