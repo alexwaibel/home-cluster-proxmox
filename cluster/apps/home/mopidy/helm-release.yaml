@@ -51,6 +51,7 @@ spec:
       mopidy-config:
         enabled: true
         type: custom
+        mountPath: /config
         volumeSpec:
           configMap:
             name: mopidy-config
