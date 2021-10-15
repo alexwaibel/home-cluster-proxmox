@@ -30,7 +30,7 @@ spec:
       icecast:
         enabled: true
         ports:
-          http:
+          icecast:
             enabled: true
             port: 8000
             protocol: TCP
@@ -52,7 +52,7 @@ spec:
           - path: /listen
             backend:
               serviceName: mopidy-icecast
-              servicePort: http
+              servicePort: icecast
         tls:
         - hosts:
           - "mopidy.${SECRET_DOMAIN}"
