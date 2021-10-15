@@ -15,11 +15,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    podSecurityContext:
-      runAsUser: 84044
-      runAsGroup: 84044
-      fsGroup: 84044
-      fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: wernight/mopidy
       tag: latest
