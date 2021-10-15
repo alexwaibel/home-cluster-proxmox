@@ -48,11 +48,11 @@ spec:
           - path: /
             backend:
               serviceName: mopidy
-              servicePort: mopidy
+              servicePort: http
           - path: /listen
             backend:
-              serviceName: icecast
-              servicePort: icecast
+              serviceName: mopidy-icecast
+              servicePort: http
         tls:
         - hosts:
           - "mopidy.${SECRET_DOMAIN}"
