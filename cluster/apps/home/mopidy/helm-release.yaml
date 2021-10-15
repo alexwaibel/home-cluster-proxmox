@@ -24,6 +24,12 @@ spec:
         ports:
           http:
             port: 6680
+            protocol: TCP
+      icecast:
+        ports:
+          http:
+            port: 8000
+            protocol: TCP
     ingress:
       main:
         enabled: true
