@@ -21,13 +21,17 @@ spec:
     nameOverride: mopidy
     service:
       main:
+        enabled: true
         ports:
           http:
+            enabled: true
             port: 6680
             protocol: TCP
       icecast:
+        enabled: true
         ports:
           http:
+            enabled: true
             port: 8000
             protocol: TCP
     ingress:
