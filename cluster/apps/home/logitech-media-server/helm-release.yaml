@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: doliana/logitech-media-server
-      tag: "2021_10_09-8.2.0"
+      tag: "2021_10_16-8.2.0"
     nameOverride: logitech-media-server
     service:
       main:
