@@ -61,7 +61,7 @@ spec:
           - path: /snapserver
             pathType: Prefix
             service:
-              name: mopidy-snapcast
+              name: mopidy-snapserver
               port: 1780
         tls:
         - hosts:
