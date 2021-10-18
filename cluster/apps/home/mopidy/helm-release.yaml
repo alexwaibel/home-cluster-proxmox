@@ -81,6 +81,10 @@ spec:
         volumeSpec:
           configMap:
             name: icecast-config
+      snapfifo:
+        enabled: true
+        type: emptyDir
+        mountPath: /tmp/snapfifo
       data:
         enabled: true
         existingClaim: mopidy-data
@@ -113,3 +117,6 @@ spec:
         ports:
         - name: web
           containerPort: 1780
+        volumeMounts:
+        - name: snapfifo
+          mountPath: /tmp/snapfifo

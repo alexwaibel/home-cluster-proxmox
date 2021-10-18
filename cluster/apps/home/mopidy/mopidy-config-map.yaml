@@ -14,7 +14,7 @@ data:
     # both defaults and this configuration file.
 
     [audio]
-    output = lamemp3enc bitrate=320 ! shout2send async=false mount=listen ip=mopidy-icecast port=8000 password=${SECRET_ICECAST_PASSWORD}
+    output = tee name=t t. ! queue ! audioconvert ! audio/x-raw,rate=48000,channels=2,format=S16LE ! wavenc ! filesink location=/tmp/snapfifo t. ! queue ! lamemp3enc bitrate=320 ! shout2send async=false mount=listen ip=mopidy-icecast port=8000 password=${SECRET_ICECAST_PASSWORD}
 
     [gmusic]
     enabled = false
