@@ -40,7 +40,7 @@ spec:
           snapserver:
             enabled: true
             port: 1780
-            protocol: TCP
+            protocol: HTTP
     ingress:
       main:
         enabled: true
