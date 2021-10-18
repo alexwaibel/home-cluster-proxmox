@@ -24,6 +24,10 @@ data:
     country = US
     locale = en_US
 
+    [party]
+    enabled = true
+    votes_to_skip = 2
+
     [spotify]
     username = ${SECRET_SPOTIFY_USERNAME}
     password = ${SECRET_SPOTIFY_PASSWORD}
