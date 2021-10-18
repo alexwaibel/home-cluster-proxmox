@@ -16,6 +16,9 @@ data:
     [audio]
     output = lamemp3enc bitrate=320 ! shout2send async=false mount=listen ip=mopidy-icecast port=8000 password=${SECRET_ICECAST_PASSWORD}
 
+    [gmusic]
+    enabled = false
+
     [http]
     hostname = 0.0.0.0
     default_app = iris
@@ -23,6 +26,9 @@ data:
     [iris]
     country = US
     locale = en_US
+
+    [pandora]
+    enabled = false
 
     [party]
     enabled = true
@@ -37,4 +43,4 @@ data:
     toplist_countries = US
 
     [soundcloud]
-    auth_token = ${SECRET_SOUNDCLOUD_TOKEN}
+    enabled = false
