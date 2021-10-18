@@ -34,6 +34,13 @@ spec:
             enabled: true
             port: 8000
             protocol: TCP
+      snapserver:
+        enabled: true
+        ports:
+          snapserver:
+            enabled: true
+            port: 1780
+            protocol: TCP
     ingress:
       main:
         enabled: true
@@ -51,6 +58,11 @@ spec:
             service:
               name: mopidy-icecast
               port: 8000
+          - path: /snapserver
+            pathType: Prefix
+            service:
+              name: mopidy-snapcast
+              port: 1780
         tls:
         - hosts:
           - "mopidy.${SECRET_DOMAIN}"
@@ -94,3 +106,10 @@ spec:
         - name: icecast-config
           mountPath: /usr/share/icecast/web/silence.mp3
           subPath: silence.mp3
+      snapserver:
+        name: snapserver
+        image: jaedb/snapserver:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 1780
