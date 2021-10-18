@@ -108,11 +108,6 @@ spec:
     grafana:
       enabled: false
       forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            etcd:
-              enabled: true
     kubelet:
       enabled: true
       serviceMonitor:
@@ -136,13 +131,7 @@ spec:
       endpoints:
         - 192.168.1.10
     kubeEtcd:
-      enabled: true
-      endpoints:
-        - 192.168.1.10
-      service:
-        enabled: true
-        port: 2381
-        targetPort: 2381
+      enabled: false
     prometheus:
       ingress:
         enabled: true

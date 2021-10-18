@@ -48,5 +48,3 @@ k3os:
   - "feature-gates=MixedProtocolLBService=true"
   - "--kubelet-arg"
   - "feature-gates=MixedProtocolLBService=true"
-  - "--etcd-expose-metrics"
-  - "true"
