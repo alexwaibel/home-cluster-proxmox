@@ -2,6 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - backups.yaml
   - cert-manager.yaml
   - devices.yaml
   - home.yaml
