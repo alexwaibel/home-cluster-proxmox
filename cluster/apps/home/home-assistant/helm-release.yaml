@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: home-assistant
-      version: 11.2.1
+      version: 12.0.1
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: homeassistant/home-assistant
-      tag: 2021.12.4
+      tag: 2021.12.10
     env:
       HASS_URL: "https://hass.${SECRET_DOMAIN}"
       ROBOROCK_ADDR: 192.168.3.164
@@ -55,7 +55,7 @@ spec:
         enabled: true
         image:
           repository: ghcr.io/k8s-at-home/code-server
-          tag: v3.12.0
+          tag: v4.0.2
         git:
           deployKeySecret: code-server
         workingDir: "/config"
